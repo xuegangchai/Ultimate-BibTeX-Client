@@ -1,6 +1,7 @@
 package ultimatebibtex;
 
 
+@Controller
 public class Controller
 {
     @RequestMapping (value = "vihaiset", method = "GET")
