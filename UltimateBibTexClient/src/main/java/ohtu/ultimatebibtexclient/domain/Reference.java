@@ -8,6 +8,6 @@ package ohtu.ultimatebibtexclient.domain;
  *
  * @author ewk
  */
-public class Viite {
+public class Reference {
     
 }
