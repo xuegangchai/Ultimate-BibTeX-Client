@@ -5,6 +5,7 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
        xsi:schemaLocation="
         http://www.springframework.org/schema/mvc 
           http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
@@ -31,20 +32,15 @@
     <!-- Mahdollistetaan konfigurointi annotaatioilla -->
     <context:annotation-config />
     
-    <!-- Käytetään muistiin ladattavaa tietokantaa -->
-    <jdbc:embedded-database id="dataSource" type="HSQL"/>
-
     <!-- Käytetään EclipseLinkkiä JPA-toteutuksena, määritellään myös persistence.xml-tiedoston sijainti -->
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <!-- älä muuta persistence.xml -tiedoston sijaintia  -->
         <property name="persistenceXmlLocation" value="classpath:persistence.xml" />
-        <property name="persistenceUnitName" value="persistenceUnitEclipseLink" /> 
+        <property name="packagesToScan" value="wad.spring.domain"/>
+        <property name="persistenceUnitName" value="${persistenceUnitName}" /> 
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" />
-        </property>
-        <property name="loadTimeWeaver"> 
-            <bean class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver" /> 
         </property>
     </bean>
     
@@ -64,4 +60,29 @@
         <property name="prefix" value="/WEB-INF/view/" />
         <property name="suffix" value=".jsp" />
     </bean>
+
+
+    <beans profile="dev,default">
+        <!-- Käytetään muistiin ladattavaa tietokantaa -->
+        <jdbc:embedded-database id="dataSource" type="HSQL"/>
+        <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="properties" value="persistenceUnitName=persistenceUnitDev"/>
+        </bean>
+    </beans>
+    <beans>
+        <!-- Postgresin konfiguraatio Herokulle -->
+        <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+            <property name="properties" value="persistenceUnitName=persistenceUnitProduction"/>
+        </bean>
+
+        <bean class="java.net.URI" id="dbUrl">
+            <constructor-arg value="#{systemEnvironment['DATABASE_URL']}"/>
+        </bean>
+
+        <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+            <property name="url" value="#{ 'jdbc:postgresql://' + @dbUrl.getHost() + @dbUrl.getPath() }"/>
+            <property name="username" value="#{ @dbUrl.getUserInfo().split(':')[0] }"/>
+            <property name="password" value="#{ @dbUrl.getUserInfo().split(':')[1] }"/>
+        </bean>
+    </beans>
 </beans>
