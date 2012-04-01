@@ -1,0 +1,35 @@
+pom.xml:ssä nyt käytössä muistiin ladattava HSQL-tietokanta
+  <jdbc:embedded-database id="dataSource" type="HSQL"/>
+  
+  
+  Muutos MySQL:ksi
+  
+  <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.18</version>
+  </dependency>
+   <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/awesome"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    </bean>
+    
+  (sitaatti: Yllä oletetaan että MySQL toimii paikallisen koneen portissa 3306 ja tietokannan nimi on awesome. Tietokannan käyttäjätunnus on root ja salasanaa ei ole annettu. Jos olet konfiguroinut dialekteja, muista myös muuttaa ne -- emme tällä kurssilla ole tutustuneet edelliseen.)
+  
+  
+  PostrgreSQL
+  
+  <dependency>
+            <groupId>postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>8.4-702.jdbc3</version>
+            <classifier/>
+        </dependency>
+         <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://localhost:5432/awesome"/>
+        <property name="username" value="root"/>
+        <property name="password" value=""/>
+    </bean>
