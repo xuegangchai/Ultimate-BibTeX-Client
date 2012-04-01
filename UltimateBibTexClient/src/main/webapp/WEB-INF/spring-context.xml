@@ -20,10 +20,10 @@
 
     <!-- DispatcherServletin (front-controllerin) konfiguraatio, jolla määritellään pyynnön kulku. -->
  
-    <!-- Sovelluksemme lähdekooditiedostot sijaitsevat pakkauksessa wad tai sen alipakkauksissa-->
+    <!-- Sovelluksemme lähdekooditiedostot sijaitsevat pakkauksessa ohtu tai sen alipakkauksissa-->
     <context:component-scan base-package="ohtu" />
     
-     <!-- Sovelluksen repository-luokat (DAO-luokat) sijaitsevat pakkauksen wad alla -->
+     <!-- Sovelluksen repository-luokat (DAO-luokat) sijaitsevat pakkauksen ohtu alla -->
     <jpa:repositories base-package="....repository" />
 
     <!-- Käytetään Spring MVC:tä annotaatioiden avulla -->
@@ -36,7 +36,7 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <!-- älä muuta persistence.xml -tiedoston sijaintia  -->
         <property name="persistenceXmlLocation" value="classpath:persistence.xml" />
-        <property name="packagesToScan" value="wad.spring.domain"/>
+        <property name="packagesToScan" value="ohtu.ultimatebibtexclient.domain"/>
         <property name="persistenceUnitName" value="${persistenceUnitName}" /> 
         <property name="dataSource" ref="dataSource"/>
         <property name="jpaVendorAdapter">
@@ -69,7 +69,7 @@
             <property name="properties" value="persistenceUnitName=persistenceUnitDev"/>
         </bean>
     </beans>
-    <beans>
+    <beans profile="production">
         <!-- Postgresin konfiguraatio Herokulle -->
         <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
             <property name="properties" value="persistenceUnitName=persistenceUnitProduction"/>
