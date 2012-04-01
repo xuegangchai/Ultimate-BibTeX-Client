@@ -1,3 +1,5 @@
+package ultimatebibtex.service;
+
 import java.util.Collection;
 
 

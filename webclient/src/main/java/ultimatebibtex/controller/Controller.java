@@ -1,4 +1,4 @@
-package ultimatebibtex;
+package ultimatebibtex.controller;
 
 
 @Controller
