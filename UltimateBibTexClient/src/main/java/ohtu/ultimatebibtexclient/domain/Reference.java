@@ -20,7 +20,7 @@ public class Reference implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.TABLE)
     private int id;
-    private String nimi;
+    private String name;
 
     public Reference() {
     }
@@ -33,11 +33,11 @@ public class Reference implements Serializable {
         this.id = id;
     }
 
-    public String getNimi() {
-        return nimi;
+    public String getName() {
+        return name;
     }
 
-    public void setNimi(String nimi) {
-        this.nimi = nimi;
+    public void setName(String name) {
+        this.name = name;
     }
 }
