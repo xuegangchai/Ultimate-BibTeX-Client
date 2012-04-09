@@ -8,7 +8,9 @@ package ohtu.ultimatebibtexclient.controller;
  *
  * @author chai
  */
+import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.service.ReferenceService;
+import ohtu.ultimatebibtexclient.util.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,10 +50,15 @@ public class Controller {
 
 	
     @RequestMapping(value = "vihaiset/reference/{refID}", method = RequestMethod.GET)
-    public String showModificationForm(Model model, @PathVariable int refID)
+    public String showModificationForm(Model model, @PathVariable Integer refID)
 	{
+		Reference ref = referenceService.fetchByID (refID);
+		if (null == ref)
+			throw new ResourceNotFoundException ();
+		
 		model.addAttribute ("title", "Muokkaa viitettä");
 		model.addAttribute ("action", String.format ("vihaiset/reference/%d", refID));
+		model.addAttribute ("ref", ref);
         return "modify";
     }
 
