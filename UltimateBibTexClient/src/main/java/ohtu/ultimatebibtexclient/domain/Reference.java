@@ -18,20 +18,27 @@ import javax.persistence.Id;
 public class Reference implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer id;
     private String name;
 
-    public Reference() {
-    }
 
-    public int getId() {
-        return id;
-    }
+	public Reference ()
+	{
+	}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
+	public Integer getId ()
+	{
+		return id;
+	}
+
+
+	public void setId (Integer id)
+	{
+		this.id = id;
+	}
+
 
     public String getName() {
         return name;
