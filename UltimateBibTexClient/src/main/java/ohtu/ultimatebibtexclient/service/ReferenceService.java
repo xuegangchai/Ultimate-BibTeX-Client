@@ -4,8 +4,8 @@
  */
 package ohtu.ultimatebibtexclient.service;
 
-import java.lang.ref.Reference;
 import java.util.Collection;
+import ohtu.ultimatebibtexclient.domain.Reference;
 
 /**
  *
