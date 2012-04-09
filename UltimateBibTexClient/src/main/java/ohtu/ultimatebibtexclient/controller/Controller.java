@@ -10,6 +10,7 @@ package ohtu.ultimatebibtexclient.controller;
  */
 import ohtu.ultimatebibtexclient.service.ReferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,30 +19,43 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class Controller {
 
     @Autowired
-    private ReferenceService ReferenceService;
-
+    private ReferenceService referenceService;
+	
+	
     @RequestMapping(value = "vihaiset", method = RequestMethod.GET)
-    public String listReferences() {
-        // ReferenceService.fetch(); //?? en oo varma
-        return "redirect:/vihaiset";
+    public String listReferences(Model model)
+	{
+		model.addAttribute ("references", referenceService.fetch ());
+        return "list";
     }
 
+	
     @RequestMapping(value = "vihaiset/create.html", method = RequestMethod.GET)
-    public String showCreationForm() {
-        return "";
+    public String showCreationForm(Model model)
+	{
+		model.addAttribute ("title", "Luo uusi viite");
+		model.addAttribute ("action", "vihaiset/reference");
+        return "modify";
     }
 
+	
     @RequestMapping(value = "vihaiset/reference", method = RequestMethod.POST)
-    public String createReference() {
+    public String createReference()
+	{
         //ReferenceService.create(); //?? en oo varma
         return "redirect:/vihaiset";
     }
 
+	
     @RequestMapping(value = "vihaiset/reference/{refID}", method = RequestMethod.GET)
-    public String showModificationForm(@PathVariable int refID) {
-        return "";
+    public String showModificationForm(Model model, @PathVariable int refID)
+	{
+		model.addAttribute ("title", "Muokkaa viitettä");
+		model.addAttribute ("action", String.format ("vihaiset/reference/%d", refID));
+        return "modify";
     }
 
+	
     @RequestMapping(value = "vihaiset/reference/{refID}", method = RequestMethod.POST)
     public String modifyReference(@PathVariable int refID) {
         //ReferenceService.modify(Reference); //?? en oo varma
