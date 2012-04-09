@@ -17,4 +17,6 @@ public interface ReferenceService
 	Reference fetchByID (Integer id);		// Fetch a reference by ID.
     Collection<Reference> fetch ();         // Fetch all stored references.
     void modify (Reference ref);            // Save changes to a previously created reference.
+	void delete (Reference ref);			// Delete a reference.
+	long count ();							// Get number of references.
 }

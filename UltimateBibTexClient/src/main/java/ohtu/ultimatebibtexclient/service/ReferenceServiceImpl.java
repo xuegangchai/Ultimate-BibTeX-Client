@@ -24,6 +24,11 @@ public class ReferenceServiceImpl implements ReferenceService
 	@Autowired ReferenceRepository referenceRepository;
 	
 	
+	public ReferenceServiceImpl ()
+	{
+	}
+	
+	
 	@Override
     @Transactional (readOnly = true)
 	public Collection<Reference> fetch ()
@@ -55,5 +60,20 @@ public class ReferenceServiceImpl implements ReferenceService
 	public void modify (Reference ref)
 	{
 		referenceRepository.save (ref);
+	}
+
+
+	@Override
+    @Transactional
+	public void delete (Reference ref)
+	{
+		referenceRepository.delete (ref);
+	}
+
+
+	@Override
+	public long count ()
+	{
+		return referenceRepository.count ();
 	}
 }
