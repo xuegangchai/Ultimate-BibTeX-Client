@@ -10,8 +10,8 @@ import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.repository.ReferenceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-
 
 
 /**
@@ -38,7 +38,7 @@ public class ReferenceServiceImpl implements ReferenceService
 
 
 	@Override
-	@Transactional
+	@Transactional (readOnly = true)
 	public Reference fetchByID (Integer id)
 	{
 		return referenceRepository.findOne (id);
@@ -46,25 +46,15 @@ public class ReferenceServiceImpl implements ReferenceService
 
 
 	@Override
-	@Transactional
-	public Reference create ()
+	@Transactional (propagation = Propagation.REQUIRED)
+	public Reference modify (Reference ref)
 	{
-		Reference ref = new Reference ();
 		return referenceRepository.save (ref);
 	}
 
 
-
 	@Override
-    @Transactional
-	public void modify (Reference ref)
-	{
-		referenceRepository.save (ref);
-	}
-
-
-	@Override
-    @Transactional
+	@Transactional (propagation = Propagation.REQUIRED)
 	public void delete (Reference ref)
 	{
 		referenceRepository.delete (ref);
