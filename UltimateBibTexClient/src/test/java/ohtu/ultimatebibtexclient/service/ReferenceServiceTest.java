@@ -51,7 +51,8 @@ public class ReferenceServiceTest extends SpringTestBase
 	@Test
 	public void testCreate ()
 	{
-		Reference ref = svc.create ();
+		Reference ref = new Reference ();
+		ref = svc.modify (ref);
 		assertNotNull (ref);
 		
 		assertNotNull (svc.fetchByID (ref.getId ()));
@@ -63,8 +64,8 @@ public class ReferenceServiceTest extends SpringTestBase
 	@Test
 	public void testFetchAll ()
 	{
-		Reference ref1 = svc.create ();
-		Reference ref2 = svc.create ();
+		Reference ref1 = svc.modify (new Reference ());
+		Reference ref2 = svc.modify (new Reference ());
 		assertNotNull (ref1);
 		assertNotNull (ref2);
 		
@@ -79,7 +80,7 @@ public class ReferenceServiceTest extends SpringTestBase
 	@Test
 	public void testModify ()
 	{
-		Reference ref = svc.create ();
+		Reference ref = svc.modify (new Reference ());
 		assertNotNull (ref);
 		
 		ref.setKey ("test");
