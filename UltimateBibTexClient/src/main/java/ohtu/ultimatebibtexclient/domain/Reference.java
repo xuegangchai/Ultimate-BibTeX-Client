@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Max;
 
 @Entity
 public class Reference implements Serializable {
@@ -34,6 +36,8 @@ public class Reference implements Serializable {
 	private String publisher;		// The publisher's name
 	private String address;			// publisher's address or city
 	private Integer year;			// The year of publication (or, if unpublished, the year of creation)
+	@Min(1)
+	@Max(12)
 	private Integer month;			// The month of publication (or, if unpublished, the month of creation)
 
 	private String organization;	// The conference sponsor
