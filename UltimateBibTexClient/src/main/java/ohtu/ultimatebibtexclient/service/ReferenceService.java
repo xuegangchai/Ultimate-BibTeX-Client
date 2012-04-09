@@ -14,6 +14,7 @@ import ohtu.ultimatebibtexclient.domain.Reference;
 public interface ReferenceService 
 {
     Reference create ();                    // Create a reference.
+	Reference fetchByID (Integer id);		// Fetch a reference by ID.
     Collection<Reference> fetch ();         // Fetch all stored references.
     void modify (Reference ref);            // Save changes to a previously created reference.
 }

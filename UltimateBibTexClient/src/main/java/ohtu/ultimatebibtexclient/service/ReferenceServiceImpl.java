@@ -25,20 +25,29 @@ public class ReferenceServiceImpl implements ReferenceService
 	
 	
 	@Override
-    @Transactional
+    @Transactional (readOnly = true)
+	public Collection<Reference> fetch ()
+	{
+		return referenceRepository.findAll ();
+	}
+
+
+	@Override
+	@Transactional
+	public Reference fetchByID (Integer id)
+	{
+		return referenceRepository.findOne (id);
+	}
+
+
+	@Override
+	@Transactional
 	public Reference create ()
 	{
 		Reference ref = new Reference ();
 		return referenceRepository.save (ref);
 	}
 
-
-	@Override
-    @Transactional (readOnly = true)
-	public Collection<Reference> fetch ()
-	{
-		return referenceRepository.findAll ();
-	}
 
 
 	@Override
