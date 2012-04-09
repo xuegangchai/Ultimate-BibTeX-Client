@@ -17,13 +17,23 @@
 		<table>
 			<thead>
 				<tr>
-					<th>Nimi<th>
+					<th>Tekijä<th>
+					<th>Artikkelin nimi<th>
+					<th>Kirjan nimi<th>
+					<th>Vuosi<th>
+					<th>Sivut<th>
+					<th>Julkaisija<th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="ref" items="${references}">
 					<tr>
-						<td>${ref.name}</td>
+						<td>${ref.author}</td>
+						<td>${ref.title}</td>
+						<td>${ref.booktitle}</td>
+						<td>${ref.year}</td>
+						<td>${ref.pages}</td>
+						<td>${ref.publisher}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
