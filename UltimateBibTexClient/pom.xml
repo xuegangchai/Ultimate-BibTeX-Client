@@ -171,7 +171,15 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-jpa</artifactId>
             <version>1.0.2.RELEASE</version>
-        </dependency> 
+        </dependency>
+		
+		<!-- junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.10</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     
     <build>
@@ -203,6 +211,13 @@
         <repository>
             <id>eclipselink repo</id>
             <url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>            
+        </repository>
+		
+        <repository>
+            <url>http://repo1.maven.org/maven2/</url>
+            <id>junit_4</id>
+            <layout>default</layout>
+            <name>Repository for library Library[junit_4]</name>
         </repository>
     </repositories>
 </project>
