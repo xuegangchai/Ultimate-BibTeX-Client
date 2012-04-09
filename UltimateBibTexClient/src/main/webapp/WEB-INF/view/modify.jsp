@@ -25,68 +25,68 @@
     </head>
     <body>
 		<h1>${title}</h1>
-		<form action="${action}" method="POST">
+		<form action="${pageContext.request.contextPath}/${action}" method="POST">
 			<table>
 				<tbody>
 					<tr>
 						<th>Tekijät</th>
-						<td><input type="text">${ref.author}</td>
+						<td><input type="text" name="author" value="${ref.author}"></td>
 					</tr>
 					<tr>
 						<th>Toimittajat</th>
-						<td><input type="text">${ref.editor}</td>
+						<td><input type="text" name="editor" value="${ref.editor}"></td>
 					</tr>
 					<tr>
 						<th>Artikkelin nimi</th>
-						<td><input type="text">${ref.title}</td>
+						<td><input type="text" name="title" value="${ref.title}"></td>
 					</tr>
 					<tr>
 						<th>Kirjan nimi</th>
-						<td><input type="text">${ref.booktitle}</td>
+						<td><input type="text" name="booktitle" value="${ref.booktitle}"></td>
 					</tr>
 					<tr>
 						<th>Sivut</th>
-						<td><input type="text">${ref.pages}</td>
+						<td><input type="text" name="pages" value="${ref.pages}"></td>
 					</tr>
 					<tr>
 						<th>Osa</th>
-						<td><input type="text">${ref.volume}</td>
+						<td><input type="text" name="volume" value="${ref.volume}"></td>
 					</tr>
 					<tr>
 						<th>Numero</th>
-						<td><input type="text">${ref.number}</td>
+						<td><input type="text" name="number" value="${ref.number}"></td>
 					</tr>
 					<tr>
 						<th>Sarja</th>
-						<td><input type="text">${ref.series}</td>
+						<td><input type="text" name="series" value="${ref.series}"></td>
 					</tr>
 					<tr>
 						<th>Julkaisija</th>
-						<td><input type="text">${ref.publisher}</td>
+						<td><input type="text" name="publisher" value="${ref.publisher}"></td>
 					</tr>
 					<tr>
 						<th>Julkaisijan osoite</th>
-						<td><input type="text">${ref.address}</td>
+						<td><input type="text" name="address" value="${ref.address}"></td>
 					</tr>
 					<tr>
 						<th>Vuosi</th>
-						<td><input type="text">${ref.year}</td>
+						<td><input type="text" name="year" value="${ref.year}"></td>
 					</tr>
 					<tr>
 						<th>Kuukausi</th>
-						<td><input type="text">${ref.month}</td>
+						<td><input type="text" name="month" value="${ref.month}"></td>
 					</tr>
 					<tr>
 						<th>Organisaatio</th>
-						<td><input type="text">${ref.organization}</td>
+						<td><input type="text" name="organization" value="${ref.organization}"></td>
 					</tr>
 					<tr>
 						<th>Lisätietoja</th>
-						<td><input type="text">${ref.note}</td>
+						<td><input type="text" name="note" value="${ref.note}"></td>
 					</tr>
 					<tr>
 						<th>Järjestämisavain</th>
-						<td><input type="text">${ref.key}</td>
+						<td><input type="text" name="key" value="${ref.key}"></td>
 					</tr>
 				</tbody>
 			</table>
