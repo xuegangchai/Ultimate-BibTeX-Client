@@ -14,15 +14,17 @@
     </head>
     <body>
 		<h1>Viitteet</h1>
+		<p><a href="${pageContext.request.contextPath}/create.html">Luo uusi viite</a></p>
 		<table>
 			<thead>
 				<tr>
-					<th>Tekijä<th>
-					<th>Artikkelin nimi<th>
-					<th>Kirjan nimi<th>
-					<th>Vuosi<th>
-					<th>Sivut<th>
-					<th>Julkaisija<th>
+					<th>Tekijä</th>
+					<th>Artikkelin nimi</th>
+					<th>Kirjan nimi</th>
+					<th>Vuosi</th>
+					<th>Sivut</th>
+					<th>Julkaisija</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -34,6 +36,7 @@
 						<td>${ref.year}</td>
 						<td>${ref.pages}</td>
 						<td>${ref.publisher}</td>
+						<td><a href="${pageContext.request.contextPath}/reference/${ref.id}">Avaa</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
