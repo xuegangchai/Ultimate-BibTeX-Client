@@ -193,6 +193,13 @@
             <artifactId>jetty-servlet</artifactId>
             <version>7.6.0.v20120127</version>
         </dependency>
+
+        <!-- Jakarta Commons Jettylle -->
+        <dependency>
+            <groupId>org.springmodules</groupId>
+            <artifactId>spring-modules-jakarta-commons</artifactId>
+            <version>0.8a</version>
+        </dependency>
 	</dependencies>
     
 	<build>
