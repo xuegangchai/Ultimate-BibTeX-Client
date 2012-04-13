@@ -21,65 +21,58 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-
 @org.springframework.stereotype.Controller
-public class Controller
-{
-    @Autowired private ReferenceService referenceService;
-	@Autowired private ReferenceValueAssigner valueAssigner;
-		
-	
-	@RequestMapping(value = "", method = RequestMethod.GET)
-    public String listReferences(Model model)
-	{
-		model.addAttribute ("references", referenceService.fetch ());
+public class Controller {
+
+    @Autowired
+    private ReferenceService referenceService;
+    @Autowired
+    private ReferenceValueAssigner valueAssigner;
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String listReferences(Model model) {
+        model.addAttribute("references", referenceService.fetch());
         return "list";
     }
 
-	
     @RequestMapping(value = "create.html", method = RequestMethod.GET)
-    public String showCreationForm(Model model)
-	{
-		model.addAttribute ("title", "Luo uusi viite");
-		model.addAttribute ("action", "reference");
+    public String showCreationForm(Model model) {
+        model.addAttribute("title", "Luo uusi viite");
+        model.addAttribute("action", "reference");
         return "modify";
     }
 
-	
-	@Transactional
+    @Transactional
     @RequestMapping(value = "reference", method = RequestMethod.POST)
-    public String createReference(HttpServletRequest req) throws IllegalAccessException, InvocationTargetException
-	{
-        Reference ref = new Reference ();
-		valueAssigner.assignReferenceVariables (req, ref);
-		referenceService.modify (ref);
+    public String createReference(HttpServletRequest req) throws IllegalAccessException, InvocationTargetException {
+        Reference ref = new Reference();
+        valueAssigner.assignReferenceVariables(req, ref);
+        referenceService.modify(ref);
         return "redirect:/";
     }
 
-	
     @RequestMapping(value = "reference/{refID}", method = RequestMethod.GET)
-    public String showModificationForm(Model model, @PathVariable Integer refID)
-	{
-		Reference ref = referenceService.fetchByID (refID);
-		if (null == ref)
-			throw new ResourceNotFoundException ();
-		
-		model.addAttribute ("title", "Muokkaa viitettä");
-		model.addAttribute ("action", String.format ("reference/%d", refID));
-		model.addAttribute ("ref", ref);
+    public String showModificationForm(Model model, @PathVariable Integer refID) {
+        Reference ref = referenceService.fetchByID(refID);
+        if (null == ref) {
+            throw new ResourceNotFoundException();
+        }
+
+        model.addAttribute("title", "Muokkaa viitettä");
+        model.addAttribute("action", String.format("reference/%d", refID));
+        model.addAttribute("ref", ref);
         return "modify";
     }
 
-	
-	@Transactional
+    @Transactional
     @RequestMapping(value = "reference/{refID}", method = RequestMethod.POST)
-    public String modifyReference(HttpServletRequest req, @PathVariable int refID) throws IllegalAccessException, InvocationTargetException
-	{
-		Reference ref = referenceService.fetchByID (refID);
-		if (null == ref)
-			throw new ResourceNotFoundException ();
-		valueAssigner.assignReferenceVariables (req, ref);
-		referenceService.modify (ref);
+    public String modifyReference(HttpServletRequest req, @PathVariable int refID) throws IllegalAccessException, InvocationTargetException {
+        Reference ref = referenceService.fetchByID(refID);
+        if (null == ref) {
+            throw new ResourceNotFoundException();
+        }
+        valueAssigner.assignReferenceVariables(req, ref);
+        referenceService.modify(ref);
         return "redirect:/";
     }
 }
