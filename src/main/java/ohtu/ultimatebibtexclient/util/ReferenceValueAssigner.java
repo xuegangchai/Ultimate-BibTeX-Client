@@ -21,10 +21,11 @@ public class ReferenceValueAssigner {
     BeanUtilsBean bean;
 
     public ReferenceValueAssigner() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        // We use BeanUtils to set properties by name. However, the default
-        // implementation substitutes null with 0 in certain classes, which
-        // we don't want.
-
+        /*
+         * We use BeanUtils to set properties by name. However, the default
+         * implementation substitutes null with 0 in certain classes, which we
+         * don't want.
+         */
         ConvertUtilsBean convertBean = new ConvertUtilsBean();
         convertBean.register(false, true, 0);
         this.bean = new BeanUtilsBean(convertBean);
@@ -54,7 +55,9 @@ public class ReferenceValueAssigner {
             "key",};
 
         String[] integerKeys = {
-            // Integer keys
+            /*
+             * Integer keys
+             */
             "year",
             "month"
         };
