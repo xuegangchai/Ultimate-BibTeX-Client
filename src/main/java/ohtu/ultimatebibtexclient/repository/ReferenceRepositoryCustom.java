@@ -4,11 +4,9 @@
  */
 package ohtu.ultimatebibtexclient.repository;
 
-
 /**
  *
  * @author tsnorri
  */
-public interface ReferenceRepositoryCustom
-{
+public interface ReferenceRepositoryCustom {
 }
