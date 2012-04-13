@@ -11,11 +11,30 @@ import ohtu.ultimatebibtexclient.domain.Reference;
  *
  * @author ewk
  */
-public interface ReferenceService 
-{
-	Reference fetchByID (Integer id);		// Fetch a reference by ID.
-    Collection<Reference> fetch ();         // Fetch all stored references.
-    Reference modify (Reference ref);            // Save changes to a previously created reference.
-	void delete (Reference ref);			// Delete a reference.
-	long count ();							// Get number of references.
+public interface ReferenceService {
+
+    /**
+     * Fetch a reference by ID.
+     */
+    Reference fetchByID(Integer id);
+
+    /**
+     * Fetch all stored references.
+     */
+    Collection<Reference> fetch();
+
+    /**
+     * Save changes to a previously created reference.
+     */
+    Reference modify(Reference ref);
+
+    /**
+     * Delete a reference.
+     */
+    void delete(Reference ref);
+
+    /**
+     * Get number of references.
+     */
+    long count();
 }
