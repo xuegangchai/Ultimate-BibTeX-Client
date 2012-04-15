@@ -37,4 +37,10 @@ public interface ReferenceService {
      * Get number of references.
      */
     long count();
+    
+    
+    /*
+     * Find the references that match the given keywords.
+     */
+    Collection<Reference> findByKeywords(Collection<String> keywords);
 }

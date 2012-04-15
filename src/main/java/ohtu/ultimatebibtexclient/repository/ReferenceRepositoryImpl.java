@@ -55,7 +55,7 @@ public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom
 
 
     @Override
-    public Collection<Reference> findByKeywords(Collection<String> keywords)
+    public Collection<Reference> findByKeywords(Collection<String> fields, Collection<String> keywords)
     {
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<Reference> cq = cb.createQuery(Reference.class);
@@ -64,27 +64,7 @@ public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom
         Root<Reference> from = cq.from(Reference.class);
         CriteriaQuery<Reference> select = cq.select(from);
 
-        String[] fields =
-        {
-            "refkey",
-            "author",
-            "editor",
-            "title",
-            "booktitle",
-            // pages
-            // volume
-            // number
-            // series
-            "publisher",
-            "address",
-            // year
-            // month
-            "organization",
-            "note",
-            // key
-        };
-
-        // Iterate the fields listed above and create a set of predicates like this one:
+        // Iterate the given fields and create a set of predicates like this one:
         // (refkey like keyword1 or author like keyword1 or ...) or (refkey like keyword2 or author like keyword2 or ...)
         // Also surround the keywords with wildcard characters, namely %, and escape any underscores and percent signs
         // in each keyword.
@@ -92,7 +72,7 @@ public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom
         int i = 0;
         for (String keyword : keywords)
         {
-            Predicate[] subpredicates = new Predicate[fields.length];
+            Predicate[] subpredicates = new Predicate[fields.size()];
             int j = 0;
             for (String field : fields)
             {

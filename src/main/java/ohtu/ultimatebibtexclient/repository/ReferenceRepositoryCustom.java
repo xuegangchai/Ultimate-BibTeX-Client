@@ -16,5 +16,5 @@ import ohtu.ultimatebibtexclient.domain.Reference;
  */
 public interface ReferenceRepositoryCustom
 {
-    public Collection<Reference> findByKeywords (Collection<String> keyword);
+    public Collection<Reference> findByKeywords (Collection<String> fields, Collection<String> keyword);
 }

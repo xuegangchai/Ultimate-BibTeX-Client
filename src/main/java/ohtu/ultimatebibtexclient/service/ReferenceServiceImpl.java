@@ -4,6 +4,7 @@
  */
 package ohtu.ultimatebibtexclient.service;
 
+import java.util.Arrays;
 import java.util.Collection;
 import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.repository.ReferenceRepository;
@@ -52,5 +53,33 @@ public class ReferenceServiceImpl implements ReferenceService {
     @Override
     public long count() {
         return referenceRepository.count();
+    }
+
+
+    @Override
+    public Collection<Reference> findByKeywords(Collection<String> keywords)
+    {
+        // The fields to be used when matching.
+        String[] fields =
+        {
+            "refkey",
+            "author",
+            "editor",
+            "title",
+            "booktitle",
+            // pages
+            // volume
+            // number
+            // series
+            "publisher",
+            "address",
+            // year
+            // month
+            "organization",
+            "note",
+            // key
+        };
+
+        return referenceRepository.findByKeywords(Arrays.asList(fields), keywords);
     }
 }
