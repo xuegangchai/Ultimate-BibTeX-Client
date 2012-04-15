@@ -23,6 +23,8 @@ public class Reference implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer id;
 	
+	private String refkey;			// Shorthand for accessing this reference from LaTeX.
+	
 	// Inproceedings fields from Wikipedia, http://en.wikipedia.org/wiki/BibTeX
 	private String author;			// The name(s) of the author(s) (in the case of more than one author, separated by and)
 	private String editor;			// The name(s) of the editor(s)
@@ -60,6 +62,18 @@ public class Reference implements Serializable {
 	public void setId (Integer id)
 	{
 		this.id = id;
+	}
+
+
+	public String getRefkey ()
+	{
+		return refkey;
+	}
+
+
+	public void setRefkey (String refkey)
+	{
+		this.refkey = refkey;
 	}
 
 
