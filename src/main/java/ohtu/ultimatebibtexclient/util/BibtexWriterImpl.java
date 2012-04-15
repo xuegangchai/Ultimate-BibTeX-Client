@@ -26,7 +26,7 @@ public class BibtexWriterImpl implements BibtexWriter
 	private String escape (String val)
 	{
 		String retval = val;
-		if (val.matches (".*[{}\"],*"))
+		if (val.matches (".*[{}\"].*"))
 		{
 			StringBuilder sb = new StringBuilder ();
 			final CharacterIterator it = new StringCharacterIterator (val);
