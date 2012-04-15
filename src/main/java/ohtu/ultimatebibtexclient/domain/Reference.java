@@ -4,6 +4,7 @@
  */
 package ohtu.ultimatebibtexclient.domain;
 
+
 /**
  *
  * @author chai
@@ -16,13 +17,14 @@ import javax.persistence.Id;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-@Entity
-public class Reference implements Serializable {
 
+@Entity
+public class Reference implements Serializable
+{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
-	private String refkey;			// Shorthand for accessing this reference from LaTeX.
+    private String refkey;			// Shorthand for accessing this reference from LaTeX.
 
     /*
      * Inproceedings fields from Wikipedia, http://en.wikipedia.org/wiki/BibTeX
@@ -46,144 +48,212 @@ public class Reference implements Serializable {
     private String note;	// Miscellaneous extra information
     private String key;         // A hidden field used for specifying or overriding the alphabetical order of entries (when the "author" and "editor" fields are missing). Note that this is very different from the key (mentioned just after this list) that is used to cite or cross-reference the entry.
 
-    public Reference() {
+
+    public Reference()
+    {
     }
 
-    public Integer getId() {
+
+    public Integer getId()
+    {
         return id;
     }
 
-    public void setId(Integer id) {
+
+    public void setId(Integer id)
+    {
         this.id = id;
     }
 
-	public String getRefkey ()
-	{
-		return refkey;
-	}
 
-	public void setRefkey (String refkey)
-	{
-		this.refkey = refkey;
-	}
+    public String getRefkey()
+    {
+        return refkey;
+    }
 
-    public String getAddress() {
+
+    public void setRefkey(String refkey)
+    {
+        this.refkey = refkey;
+    }
+
+
+    public String getAddress()
+    {
         return address;
     }
 
-    public void setAddress(String address) {
+
+    public void setAddress(String address)
+    {
         this.address = address;
     }
 
-    public String getAuthor() {
+
+    public String getAuthor()
+    {
         return author;
     }
 
-    public void setAuthor(String author) {
+
+    public void setAuthor(String author)
+    {
         this.author = author;
     }
 
-    public String getBooktitle() {
+
+    public String getBooktitle()
+    {
         return booktitle;
     }
 
-    public void setBooktitle(String booktitle) {
+
+    public void setBooktitle(String booktitle)
+    {
         this.booktitle = booktitle;
     }
 
-    public String getEditor() {
+
+    public String getEditor()
+    {
         return editor;
     }
 
-    public void setEditor(String editor) {
+
+    public void setEditor(String editor)
+    {
         this.editor = editor;
     }
 
-    public String getKey() {
+
+    public String getKey()
+    {
         return key;
     }
 
-    public void setKey(String key) {
+
+    public void setKey(String key)
+    {
         this.key = key;
     }
 
-    public Integer getMonth() {
+
+    public Integer getMonth()
+    {
         return month;
     }
 
-    public void setMonth(Integer month) {
+
+    public void setMonth(Integer month)
+    {
         this.month = month;
     }
 
-    public String getNote() {
+
+    public String getNote()
+    {
         return note;
     }
 
-    public void setNote(String note) {
+
+    public void setNote(String note)
+    {
         this.note = note;
     }
 
-    public String getNumber() {
+
+    public String getNumber()
+    {
         return number;
     }
 
-    public void setNumber(String number) {
+
+    public void setNumber(String number)
+    {
         this.number = number;
     }
 
-    public String getOrganization() {
+
+    public String getOrganization()
+    {
         return organization;
     }
 
-    public void setOrganization(String organization) {
+
+    public void setOrganization(String organization)
+    {
         this.organization = organization;
     }
 
-    public String getPages() {
+
+    public String getPages()
+    {
         return pages;
     }
 
-    public void setPages(String pages) {
+
+    public void setPages(String pages)
+    {
         this.pages = pages;
     }
 
-    public String getPublisher() {
+
+    public String getPublisher()
+    {
         return publisher;
     }
 
-    public void setPublisher(String publisher) {
+
+    public void setPublisher(String publisher)
+    {
         this.publisher = publisher;
     }
 
-    public String getSeries() {
+
+    public String getSeries()
+    {
         return series;
     }
 
-    public void setSeries(String series) {
+
+    public void setSeries(String series)
+    {
         this.series = series;
     }
 
-    public String getTitle() {
+
+    public String getTitle()
+    {
         return title;
     }
 
-    public void setTitle(String title) {
+
+    public void setTitle(String title)
+    {
         this.title = title;
     }
 
-    public String getVolume() {
+
+    public String getVolume()
+    {
         return volume;
     }
 
-    public void setVolume(String volume) {
+
+    public void setVolume(String volume)
+    {
         this.volume = volume;
     }
 
-    public Integer getYear() {
+
+    public Integer getYear()
+    {
         return year;
     }
 
-    public void setYear(Integer year) {
+
+    public void setYear(Integer year)
+    {
         this.year = year;
     }
 }
