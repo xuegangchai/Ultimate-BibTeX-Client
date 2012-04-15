@@ -4,16 +4,12 @@
  */
 package ohtu.ultimatebibtexclient.repository;
 
-
 import org.springframework.stereotype.Repository;
-
-
 
 /**
  *
  * @author tsnorri
  */
 @Repository
-public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom
-{
+public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom {
 }
