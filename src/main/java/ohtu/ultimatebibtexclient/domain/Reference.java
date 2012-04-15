@@ -23,6 +23,7 @@ public class Reference implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 	private String refkey;			// Shorthand for accessing this reference from LaTeX.
+
     /*
      * Inproceedings fields from Wikipedia, http://en.wikipedia.org/wiki/BibTeX
      *
