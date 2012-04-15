@@ -4,9 +4,17 @@
  */
 package ohtu.ultimatebibtexclient.repository;
 
+
+import java.util.Collection;
+import ohtu.ultimatebibtexclient.domain.Reference;
+
+
+
 /**
  *
  * @author tsnorri
  */
-public interface ReferenceRepositoryCustom {
+public interface ReferenceRepositoryCustom
+{
+    public Collection<Reference> findByKeywords (Collection<String> keyword);
 }

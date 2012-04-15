@@ -4,12 +4,109 @@
  */
 package ohtu.ultimatebibtexclient.repository;
 
+
+import java.text.CharacterIterator;
+import java.text.StringCharacterIterator;
+import java.util.Collection;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.*;
+import ohtu.ultimatebibtexclient.domain.Reference;
 import org.springframework.stereotype.Repository;
+
 
 /**
  *
  * @author tsnorri
  */
 @Repository
-public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom {
+public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom
+{
+    @PersistenceContext
+    private EntityManager entityManager;
+
+
+    private String escape(String val)
+    {
+        String retval = val;
+        if (val.matches(".*[%_].*"))
+        {
+            StringBuilder sb = new StringBuilder();
+            final CharacterIterator it = new StringCharacterIterator(val);
+            for (char c = it.first(); c != CharacterIterator.DONE; c = it.next())
+            {
+                switch (c)
+                {
+                    case '_':
+                    case '%':
+                        sb.append('\\');
+                        sb.append(c);
+                        break;
+                    default:
+                        sb.append(c);
+                        break;
+                }
+            }
+            retval = sb.toString();
+        }
+        return retval;
+    }
+
+
+    @Override
+    public Collection<Reference> findByKeywords(Collection<String> keywords)
+    {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Reference> cq = cb.createQuery(Reference.class);
+
+        // select from Reference
+        Root<Reference> from = cq.from(Reference.class);
+        CriteriaQuery<Reference> select = cq.select(from);
+
+        String[] fields =
+        {
+            "refkey",
+            "author",
+            "editor",
+            "title",
+            "booktitle",
+            // pages
+            // volume
+            // number
+            // series
+            "publisher",
+            "address",
+            // year
+            // month
+            "organization",
+            "note",
+            // key
+        };
+
+        // Iterate the fields listed above and create a set of predicates like this one:
+        // (refkey like keyword1 or author like keyword1 or ...) or (refkey like keyword2 or author like keyword2 or ...)
+        // Also surround the keywords with wildcard characters, namely %, and escape any underscores and percent signs
+        // in each keyword.
+        Predicate[] predicates = new Predicate[keywords.size()];
+        int i = 0;
+        for (String keyword : keywords)
+        {
+            Predicate[] subpredicates = new Predicate[fields.length];
+            int j = 0;
+            for (String field : fields)
+            {
+                Expression<String> fieldExp = from.get(field);
+                subpredicates[j] = cb.like(fieldExp, String.format("%%%s%%", escape(keyword)));
+                j++;
+            }
+
+            predicates[i] = cb.or(subpredicates);
+            i++;
+        }
+
+        select.where(cb.or(predicates));
+        TypedQuery<Reference> typedQuery = entityManager.createQuery(select);
+        return typedQuery.getResultList();
+    }
 }
