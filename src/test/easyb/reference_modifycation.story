@@ -6,7 +6,7 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 description 'A reference can be created if proper informations are given'
 
 scenario "creation succesfull with proper informations", {
-    given 'create form selected', {
+    given 'login selected', {
         driver = new HtmlUnitDriver();
         driver.get("http://localhost:8080");
         element = driver.findElement(By.linkText("Luo uusi viite"));
