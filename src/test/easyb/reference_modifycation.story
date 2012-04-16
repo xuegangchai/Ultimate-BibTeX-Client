@@ -23,7 +23,7 @@ scenario 'modification succesfull with proper informations', {
         element.sendKeys("2012");
         element = driver.findElement(By.id("submit"));
         element.submit();
-        element = driver.findElement(By.linkText("Avaa"));
+        element = driver.findElement(By.linkText("Muokkaa"));
         element.click();
     }
 
