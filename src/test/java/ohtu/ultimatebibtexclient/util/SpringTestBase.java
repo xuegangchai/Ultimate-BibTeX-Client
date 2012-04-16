@@ -1,4 +1,4 @@
-package ohtu.ultimatebibtexclient.test.util;
+package ohtu.ultimatebibtexclient.util;
 
 
 import static org.junit.Assert.assertNotNull;

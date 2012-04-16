@@ -2,12 +2,13 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package ohtu.ultimatebibtexclient.service;
+package ohtu.ultimatebibtexclient.service.unittest;
 
 
 import java.util.Collection;
 import ohtu.ultimatebibtexclient.domain.Reference;
-import ohtu.ultimatebibtexclient.test.util.SpringTestBase;
+import ohtu.ultimatebibtexclient.service.ReferenceService;
+import ohtu.ultimatebibtexclient.util.SpringTestBase;
 import static org.junit.Assert.*;
 import org.junit.*;
 
