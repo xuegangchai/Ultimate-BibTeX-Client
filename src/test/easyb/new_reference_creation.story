@@ -8,7 +8,7 @@ description 'A reference can be created if proper informations are given'
 scenario "creation succesfull with proper informations", {
     given 'create form selected', {
         driver = new HtmlUnitDriver();
-        driver.get("http://localhost:8080");
+        driver.get("http://localhost:8088");
         element = driver.findElement(By.linkText("Luo uusi viite"));
         element.click();
     }

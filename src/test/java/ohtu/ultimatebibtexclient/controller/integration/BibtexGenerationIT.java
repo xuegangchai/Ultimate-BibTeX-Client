@@ -53,7 +53,7 @@ public class BibtexGenerationIT
     {
         // Given a reference has been created
         HtmlUnitDriver driver = new HtmlUnitDriver();
-        driver.get("http://localhost:8080");
+        driver.get("http://localhost:8088");
         WebElement element = driver.findElement(By.linkText("Luo uusi viite"));
         element.click();
 
@@ -71,7 +71,7 @@ public class BibtexGenerationIT
         element.submit();
 
         // When the download link is clicked
-        driver.get("http://localhost:8080");
+        driver.get("http://localhost:8088");
         element = driver.findElement(By.linkText("Lataa viitteet BibTeX-muodossa"));
         element.click();
 
