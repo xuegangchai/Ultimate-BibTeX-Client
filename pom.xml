@@ -15,7 +15,6 @@
         <eclipselink-version>2.3.2</eclipselink-version>
         <eclipselink-jpa-version>2.0.0</eclipselink-jpa-version>
         <hsqldb-version>1.8.0.10</hsqldb-version>
-        <easyb.version>1.5</easyb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -40,18 +39,26 @@
             </exclusions>
         </dependency>
         
+        <!-- easyb -->
         <dependency>
             <groupId>org.easyb</groupId>
             <artifactId>easyb-core</artifactId>
-            <version>${easyb.version}</version>
+            <version>1.5</version>
             <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-lang</artifactId>
+                    <groupId>commons-lang</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
         
+        <!-- Selenium -->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>2.13.0</version>
-            <scope>compile</scope>
+            <version>2.20.0</version>
+            <scope>test</scope>
         </dependency>
 
         <!-- servlet ja jsp api -->
