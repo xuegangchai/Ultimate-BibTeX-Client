@@ -67,7 +67,7 @@
                         <td>${ref.year}</td>
                         <td>${ref.pages}</td>
                         <td>${ref.publisher}</td>
-                        <td><a href="${pageContext.request.contextPath}/reference/${ref.id}">Avaa</a></td>
+                        <td><a href="${pageContext.request.contextPath}/reference/${ref.id}">Muokkaa</a></td>
                     </tr>
                 </c:forEach>
             </tbody>
