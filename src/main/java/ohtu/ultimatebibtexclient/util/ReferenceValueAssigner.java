@@ -52,7 +52,8 @@ public class ReferenceValueAssigner {
             "address",
             "organization",
             "note",
-            "key",};
+            "key",
+            "tags"};
 
         String[] integerKeys = {
             /*

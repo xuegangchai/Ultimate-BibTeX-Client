@@ -47,7 +47,7 @@ public class Reference implements Serializable
     private String organization;	// The conference sponsor
     private String note;	// Miscellaneous extra information
     private String key;         // A hidden field used for specifying or overriding the alphabetical order of entries (when the "author" and "editor" fields are missing). Note that this is very different from the key (mentioned just after this list) that is used to cite or cross-reference the entry.
-
+    private String tags;    //tags that user can use sor sorting references 
 
     public Reference()
     {
@@ -69,6 +69,18 @@ public class Reference implements Serializable
     public String getRefkey()
     {
         return refkey;
+    }
+
+
+    public void setTags(String tags)
+    {
+        this.tags = tags;
+    }
+
+
+    public String getTags()
+    {
+        return tags;
     }
 
 

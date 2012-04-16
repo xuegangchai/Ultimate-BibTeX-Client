@@ -78,6 +78,7 @@ public class ReferenceServiceImpl implements ReferenceService {
             "organization",
             "note",
             // key
+            "tags",
         };
 
         return referenceRepository.findByKeywords(Arrays.asList(fields), keywords);

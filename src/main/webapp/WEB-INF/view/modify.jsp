@@ -92,6 +92,11 @@
                         <th>Järjestämisavain</th>
                         <td><input type="text" name="key" value="${ref.key}"></td>
                     </tr>
+                    <tr>
+                        <th>Tags</th>
+                        <td><input type="text" name="tags" value="${ref.tags}"></td>
+                    </tr>
+                    
                 </tbody>
             </table>
             <button type="submit">Lähetä</button>
