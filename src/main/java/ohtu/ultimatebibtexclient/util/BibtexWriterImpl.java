@@ -11,8 +11,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
-import java.util.List;
-import java.util.Scanner;
+import java.util.Collection;
 import ohtu.ultimatebibtexclient.domain.Reference;
 
 
@@ -65,17 +64,25 @@ public class BibtexWriterImpl implements BibtexWriter
 	
 	
 	@Override
-	public void write (List<Reference> refs, OutputStream stream) throws IOException
+	public void write (Collection<Reference> refs, OutputStream stream) throws IOException
 	{
 		OutputStreamWriter os = new OutputStreamWriter (stream, "UTF-8");
 		PrintWriter pw = new PrintWriter (os);
 		
 		pw.append ("@comment { Automatically generated with Ultimate BibTeX client. }\n\n");
 		
+        int nullcount = 0;
 		for (Reference ref : refs)
 		{
 			pw.append ("@inproceedings {\n");
-			pw.format ("\t%s,\n", ref.getRefkey ());
+            
+            String refkey = ref.getRefkey();
+            if (null == refkey)
+            {
+                refkey = String.format ("unset-refkey-%d", nullcount);
+                nullcount++;
+            }
+			pw.format ("\t%s,\n", refkey);
 			
 			addif ("Author",		ref.getAuthor (),		pw);
 			addif ("Editor",		ref.getEditor (),		pw);
@@ -95,5 +102,8 @@ public class BibtexWriterImpl implements BibtexWriter
 			
 			pw.append ("}\n");
 		}
+        
+        pw.flush();
+        os.flush();
 	}
 }

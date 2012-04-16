@@ -7,7 +7,7 @@ package ohtu.ultimatebibtexclient.util;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.List;
+import java.util.Collection;
 import ohtu.ultimatebibtexclient.domain.Reference;
 
 
@@ -18,5 +18,5 @@ import ohtu.ultimatebibtexclient.domain.Reference;
  */
 public interface BibtexWriter
 {
-	public void write (List<Reference> refs, OutputStream stream) throws IOException;
+	public void write (Collection<Reference> refs, OutputStream stream) throws IOException;
 }
