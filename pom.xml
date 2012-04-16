@@ -200,6 +200,15 @@
             <artifactId>commons-pool</artifactId>
             <version>20030825.183949</version>
         </dependency>
+        
+        <!-- BibTeX parser -->
+        <dependency>
+            <groupId>org.jbibtex</groupId>
+            <artifactId>jbibtex</artifactId>
+            <version>r37</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jbibtex-r37.jar</systemPath>
+        </dependency>
 	</dependencies>
     
 	<build>
