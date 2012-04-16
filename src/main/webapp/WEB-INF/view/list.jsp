@@ -42,7 +42,10 @@
     </head>
     <body>
         <h1>Viitteet</h1>
-        <p><a href="${pageContext.request.contextPath}/create.html">Luo uusi viite</a></p>
+        <p>
+            <a href="${pageContext.request.contextPath}/create.html">Luo uusi viite</a><br>
+            <a href="${pageContext.request.contextPath}/bibtex">Lataa viitteet BibTeX-muodossa</a>
+        </p>
         <table>
             <thead>
                 <tr>
