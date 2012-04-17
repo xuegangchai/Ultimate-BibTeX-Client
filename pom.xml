@@ -19,6 +19,22 @@
         <easyb.version>1.5</easyb.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    
+    <!-- Jätä testit suorittamatta, jos evn.SKIP_MAVEN_TESTS-muuttuja on asetettu. -->
+    <profiles>
+        <profile>
+            <id>no-tests</id>
+            <activation>
+                <property>
+                    <name>evn.SKIP_MAVEN_TESTS</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <properties>
+                <maven.test.skip>true</maven.test.skip>
+            </properties>
+        </profile>
+    </profiles>
 
     <dependencies>
         <!-- spring -->
