@@ -40,6 +40,7 @@ public class ReferenceValueAssigner {
          * http://erratasec.blogspot.com/2012/03/rubygithub-hack-translated.html
          */
         String[] stringKeys = {
+            "refkey",
             "author",
             "editor",
             "title",

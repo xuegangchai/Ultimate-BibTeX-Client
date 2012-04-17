@@ -33,6 +33,11 @@
             <table>
                 <tbody>
                     <tr>
+                        <th>Viiteavain</th>
+                        <td><input type="text" name="refkey" value="${ref.refkey}" required</td>
+                        <td>- LaTeXissa käytettävä viiteavain</td>
+                    </tr>
+                    <tr>
                         <th>Tekijät</th>
                         <td><input type="text" name="author" value="${ref.author}" required></td>
                         <td> - Tekijöiden nimet </td>
