@@ -20,7 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     
-    <!-- Jätä testit suorittamatta, jos evn.SKIP_MAVEN_TESTS-muuttuja on asetettu. -->
+    <!-- Jätä myös Easyb-testit suorittamatta, jos skipTests on asetettu. -->
     <profiles>
         <profile>
             <id>default</id>
