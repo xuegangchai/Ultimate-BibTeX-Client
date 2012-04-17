@@ -300,6 +300,15 @@ muutosten yhteydessä
                     <webAppConfig>
                         <contextPath>/</contextPath>
                     </webAppConfig>
+                    
+                    <!-- Make Jetty run on port 8088 -->
+                    <connectors>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>8088</port>
+                            <maxIdleTime>60000</maxIdleTime>
+                        </connector>
+                    </connectors>
+
                 </configuration>
                 
                 <executions>
