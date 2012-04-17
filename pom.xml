@@ -100,7 +100,7 @@
             <id>no-tests</id>
             <activation>
                 <property>
-                    <name>env.SKIP_MAVEN_TESTS</name>
+                    <name>skipTests</name>
                     <value>true</value>
                 </property>
             </activation>
