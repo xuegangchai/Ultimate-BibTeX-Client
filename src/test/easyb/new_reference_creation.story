@@ -41,7 +41,7 @@ scenario "creation not succesfull with required informations missing", {
         element.click();
     }
 
-    when 'a valid information are given', {
+    when 'a NOT valid information are given', {
         element = driver.findElement(By.name("author"));
         element.sendKeys("Xuegang Chai");
         element = driver.findElement(By.name("title"));
