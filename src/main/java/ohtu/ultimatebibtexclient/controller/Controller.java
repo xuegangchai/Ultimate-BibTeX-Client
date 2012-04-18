@@ -29,6 +29,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @org.springframework.stereotype.Controller
@@ -99,34 +100,14 @@ public class Controller
     }
     
     
-    @RequestMapping(value = "reference/search/{keywords}", method = RequestMethod.GET)
-    public String showSearchForm(Model model, @PathVariable String keywords)
+    @RequestMapping(value = "search", method = RequestMethod.POST)
+    public String searchReferences(Model model, @RequestParam String keywords) throws IllegalAccessException, InvocationTargetException
     {
         String content = keywords;
-        String[] keyword = content.split(" ");
-        List list = Arrays.asList(keyword);
-        Collection<Reference> refs = referenceService.findByKeywords(list);
-        if (null == refs)
-        {
-            throw new ResourceNotFoundException();
-        }
+        String[] kwArray = content.split("\\s+");
+        Collection<Reference> refs = referenceService.findByKeywords(Arrays.asList(kwArray));
+        model.addAttribute("references", refs);
         return "list";
-    }
-
-    
-    @RequestMapping(value = "", method = RequestMethod.POST)
-    public String searchReference(Model model, @PathVariable String keywords) throws IllegalAccessException, InvocationTargetException
-    {
-        String content = keywords;
-        String[] keyword = content.split(" ");
-        List list = Arrays.asList(keyword);
-        Collection<Reference> refs = referenceService.findByKeywords(list);
-        model.addAttribute("action", String.format("reference/search/%s", keywords));
-        if (null == refs)
-        {
-            throw new ResourceNotFoundException();
-        }
-        return "redirect:/";
     }
 
 

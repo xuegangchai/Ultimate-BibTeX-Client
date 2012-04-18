@@ -52,11 +52,11 @@
             <a href="${pageContext.request.contextPath}/create.html">Luo uusi viite</a><br>
             <a href="${pageContext.request.contextPath}/bibtex">Lataa viitteet BibTeX-muodossa</a>
         </p>
-        <form action="${pageContext.request.contextPath}/${action}" method="POST">
+        <form action="${pageContext.request.contextPath}/search" method="POST">
             <table width="400" cellpadding="5">
                 <tr>
                     <td>
-                        Search:<input type="text" size="30" maxlength="50"><button type="submit">Search</button>
+                        Search: <input type="text" name="keywords" size="30" maxlength="50"><button type="submit">Search</button>
                     </td>
                 </tr>
             </table>
