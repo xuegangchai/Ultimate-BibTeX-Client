@@ -11,7 +11,9 @@ package ohtu.ultimatebibtexclient.controller;
  */
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -97,13 +99,44 @@ public class Controller
     }
     
     
+    @RequestMapping(value = "reference/search/{keywords}", method = RequestMethod.GET)
+    public String showSearchForm(Model model, @PathVariable String keywords)
+    {
+        String content = keywords;
+        String[] keyword = content.split(" ");
+        List list = Arrays.asList(keyword);
+        Collection<Reference> refs = referenceService.findByKeywords(list);
+        if (null == refs)
+        {
+            throw new ResourceNotFoundException();
+        }
+        return "list";
+    }
+
+    
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public String searchReference(Model model, @PathVariable String keywords) throws IllegalAccessException, InvocationTargetException
+    {
+        String content = keywords;
+        String[] keyword = content.split(" ");
+        List list = Arrays.asList(keyword);
+        Collection<Reference> refs = referenceService.findByKeywords(list);
+        model.addAttribute("action", String.format("reference/search/%s", keywords));
+        if (null == refs)
+        {
+            throw new ResourceNotFoundException();
+        }
+        return "redirect:/";
+    }
+
+
     @RequestMapping(value = "bibtex", method = RequestMethod.GET)
     public void fetchReferencesAsBibtex(HttpServletResponse response) throws IOException
     {
         BibtexWriter writer = new BibtexWriterImpl();
         Collection<Reference> refs = referenceService.fetch();
         ServletOutputStream outputStream = response.getOutputStream();
-        
+
         response.setHeader("Content-Type", "text/x-bibtex");
         writer.write(refs, outputStream);
     }

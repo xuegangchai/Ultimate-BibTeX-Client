@@ -11,6 +11,12 @@
         <meta charset="UTF-8">
         <title>Viitteet</title>
         <style type="text/css">
+            h1 a {
+                color:#336699;
+                text-decoration:none;
+                font-weight:normal;
+                padding-left:15px;
+            }
             table {
                 font-size:0.9em;
                 font-family:Arial, Helvetica, verdana sans-serif;
@@ -28,7 +34,7 @@
                 padding:2px;
             }
 
-            tbody tr {
+            tbody tr#list {
                 background-color:#F0F0F0 ;
                 border-bottom:1px solid #D8D8D8;
             }
@@ -41,14 +47,23 @@
         </style>
     </head>
     <body>
-        <h1>Viitteet</h1>
+        <h1><a href="/vihaiset">Ultimate Bibtex Client</a></h1>
         <p>
             <a href="${pageContext.request.contextPath}/create.html">Luo uusi viite</a><br>
             <a href="${pageContext.request.contextPath}/bibtex">Lataa viitteet BibTeX-muodossa</a>
         </p>
+        <form action="${pageContext.request.contextPath}/${action}" method="POST">
+            <table width="400" cellpadding="5">
+                <tr>
+                    <td>
+                        Search:<input type="text" size="30" maxlength="50"><button type="submit">Search</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
         <table>
             <thead>
-                <tr>
+                <tr id="list">
                     <th>Tekijä</th>
                     <th>Artikkelin nimi</th>
                     <th>Kirjan nimi</th>
