@@ -3,7 +3,7 @@ import ohtu.authentication.*
 import org.openqa.selenium.*
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
-description 'A search based on author is succesful if if what is being searched is in the system'
+description 'A search based on author is succesful if what is being searched is in the system'
 
 scenario "element that has been inserted to the database can be found with the search function based on the author", {
     given 'element inserted to the database', {
@@ -36,9 +36,9 @@ scenario "element that has been inserted to the database can be found with the s
         driver.getPageSource().contains("test").shouldBe true
     }
 }
-description 'A search based on title is succesful if if what is being searched is in the system'
+description 'A search based on title is succesful  if what is being searched is in the system'
 
-scenario "element that has been inserted to the database can be found with the search function based on the author", {
+scenario "element that has been inserted to the database can be found with the search function based on the title", {
     given 'element inserted to the database', {
         driver = new HtmlUnitDriver();
         driver.get("http://localhost:8088");
@@ -70,7 +70,7 @@ scenario "element that has been inserted to the database can be found with the s
     }
 }
 
-description 'A search based on booktitle is succesful if if what is being searched is in the system'
+description 'A search based on booktitle is succesful  if what is being searched is in the system'
 
 scenario "element that has been inserted to the database can be found with the search function based on the booktitle", {
     given 'element inserted to the database', {
@@ -104,7 +104,7 @@ scenario "element that has been inserted to the database can be found with the s
     }
 }
 
-description 'A search based on year is succesful if if what is being searched is in the system'
+description 'A search based on year is succesful if what is being searched is in the system'
 
 scenario "element that has been inserted to the database can be found with the search function based on the year", {
     given 'element inserted to the database', {
