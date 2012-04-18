@@ -47,7 +47,7 @@
         </style>
     </head>
     <body>
-        <h1><a href="/vihaiset">Ultimate Bibtex Client</a></h1>
+        <h1><a href="${pageContext.request.contextPath}/">Ultimate Bibtex Client</a></h1>
         <p>
             <a href="${pageContext.request.contextPath}/create.html">Luo uusi viite</a><br>
             <a href="${pageContext.request.contextPath}/bibtex">Lataa viitteet BibTeX-muodossa</a>

@@ -28,7 +28,7 @@
         </style>
     </head>
     <body>
-        <h1><a href="/vihaiset">Etusivu</a></h1>
+        <h1><a href="${pageContext.request.contextPath}/">Etusivu</a></h1>
         <form action="${pageContext.request.contextPath}/${action}" method="POST">
             <table>
                 <tbody>
