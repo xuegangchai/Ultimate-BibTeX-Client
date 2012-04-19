@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+    version="2.1">
+
+    <tlib-version>1.0</tlib-version>
+    <short-name>functions</short-name>
+    <uri>http://cs.helsinki.fi/courses/ohtu/ultimatebibtex/tags</uri>
+
+    <function>
+        <name>formatErrors</name>
+        <function-class>ohtu.ultimatebibtexclient.util.ErrorFormatter</function-class>
+        <function-signature>java.lang.String formatErrors(ohtu.ultimatebibtexclient.util.ErrorFormatter, java.lang.String)</function-signature>
+    </function>
+</taglib>

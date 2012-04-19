@@ -13,7 +13,6 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.util.HtmlUtils;
 
 
-
 /**
  *
  * @author tsnorri
@@ -21,14 +20,23 @@ import org.springframework.web.util.HtmlUtils;
 public class ErrorFormatter
 {
     protected BindingResult bindingResult;
-    
-    
+
+
+    public static String formatErrors(ErrorFormatter formatter, String field)
+    {
+        String retval = "";
+        if (null != formatter)
+            retval = formatter.formatErrors(field);
+        return retval;
+    }
+
+
     public ErrorFormatter(BindingResult res)
     {
         bindingResult = res;
     }
-    
-    
+
+
     public String formatErrors(String field)
     {
         String retval = "";

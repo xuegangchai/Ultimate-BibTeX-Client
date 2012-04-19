@@ -47,6 +47,7 @@
         </style>
     </head>
     <body>
+        <!-- This is the front page. -->
         <h1><a href="${pageContext.request.contextPath}/">Ultimate Bibtex Client</a></h1>
         <p>
             <a href="${pageContext.request.contextPath}/create.html">Luo uusi viite</a><br>
