@@ -10,26 +10,21 @@ package ohtu.ultimatebibtexclient.controller;
  * @author chai
  */
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.service.ReferenceService;
 import ohtu.ultimatebibtexclient.util.BibtexWriter;
 import ohtu.ultimatebibtexclient.util.BibtexWriterImpl;
-import ohtu.ultimatebibtexclient.util.ReferenceValueAssigner;
+import ohtu.ultimatebibtexclient.util.ErrorFormatter;
 import ohtu.ultimatebibtexclient.util.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 
 @org.springframework.stereotype.Controller
@@ -37,10 +32,8 @@ public class Controller
 {
     @Autowired
     private ReferenceService referenceService;
-    @Autowired
-    private ReferenceValueAssigner valueAssigner;
-
-
+    
+    
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listReferences(Model model)
     {
@@ -58,14 +51,26 @@ public class Controller
     }
 
 
-    @Transactional
     @RequestMapping(value = "reference", method = RequestMethod.POST)
-    public String createReference(HttpServletRequest req) throws IllegalAccessException, InvocationTargetException
+    public String createReference(Model model, @Valid @ModelAttribute Reference ref, BindingResult res)
     {
-        Reference ref = new Reference();
-        valueAssigner.assignReferenceVariables(req, ref);
-        referenceService.modify(ref);
-        return "redirect:/";
+        String retval = "redirect:/";
+        if (res.hasErrors())
+        {
+            model.addAttribute("ref", ref);
+            model.addAttribute("errorFormatter", new ErrorFormatter(res));
+            model.addAttribute("title", "Luo uusi viite");
+            model.addAttribute("action", "reference");
+            retval = "modify";
+        }
+        else
+        {
+            // Zero automatically filled fields.
+            ref.setId(null);
+
+            referenceService.modify(ref);
+        }
+        return retval;
     }
 
 
@@ -85,23 +90,36 @@ public class Controller
     }
 
 
-    @Transactional
     @RequestMapping(value = "reference/{refID}", method = RequestMethod.POST)
-    public String modifyReference(HttpServletRequest req, @PathVariable int refID) throws IllegalAccessException, InvocationTargetException
+    public String modifyReference(Model model, @PathVariable int refID, @Valid @ModelAttribute Reference ref, BindingResult res)
     {
-        Reference ref = referenceService.fetchByID(refID);
-        if (null == ref)
+        String retval = "redirect:/";
+        
+        if (null == referenceService.fetchByID(refID))
         {
             throw new ResourceNotFoundException();
         }
-        valueAssigner.assignReferenceVariables(req, ref);
-        referenceService.modify(ref);
-        return "redirect:/";
+
+        if (res.hasErrors())
+        {
+            model.addAttribute("ref", ref);
+            model.addAttribute("errorFormatter", new ErrorFormatter(res));
+            model.addAttribute("title", "Muokkaa viitettä");
+            model.addAttribute("action", String.format("reference/%d", refID));
+            retval = "modify";
+        }
+        else
+        {
+            ref.setId(refID);
+            referenceService.modify(ref);
+        }
+
+        return retval;
     }
     
     
     @RequestMapping(value = "search", method = RequestMethod.POST)
-    public String searchReferences(Model model, @RequestParam String keywords) throws IllegalAccessException, InvocationTargetException
+    public String searchReferences(Model model, @RequestParam String keywords)
     {
         String content = keywords;
         String[] kwArray = content.split("\\s+");
