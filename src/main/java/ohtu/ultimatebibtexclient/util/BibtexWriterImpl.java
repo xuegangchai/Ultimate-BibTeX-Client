@@ -13,6 +13,8 @@ import java.text.CharacterIterator;
 import java.text.StringCharacterIterator;
 import java.util.Collection;
 import ohtu.ultimatebibtexclient.domain.Reference;
+import org.jbibtex.*;
+
 
 
 /**
@@ -21,41 +23,14 @@ import ohtu.ultimatebibtexclient.domain.Reference;
  */
 public class BibtexWriterImpl implements BibtexWriter
 {
-    private String escape(String val)
-    {
-        String retval = val;
-        if (val.matches(".*[{}\"].*"))
-        {
-            StringBuilder sb = new StringBuilder();
-            final CharacterIterator it = new StringCharacterIterator(val);
-            for (char c = it.first(); c != CharacterIterator.DONE; c = it.next())
-            {
-                switch (c)
-                {
-                    case '{':
-                        sb.append("\\{");
-                        break;
-                    case '}':
-                        sb.append("\\}");
-                        break;
-                    case '"':
-                        sb.append("{\"}");
-                        break;
-                    default:
-                        sb.append(c);
-                        break;
-                }
-            }
-            retval = sb.toString();
-        }
-        return retval;
-    }
-
-
-    private void addif(String key, Object val, PrintWriter pf)
+    private void addif(String key, Object val, BibTeXEntry entry, Key key)
     {
         if (null != val)
         {
+            
+            entry.addField(key,
+            
+            
             String str = val.toString();
             pf.format("\t%s = \"%s\",\n", key, escape(str));
         }
@@ -65,6 +40,38 @@ public class BibtexWriterImpl implements BibtexWriter
     @Override
     public void write(Collection<Reference> refs, OutputStream stream) throws IOException
     {
+        BibTeXDatabase db = new BibTeXDatabase();
+        
+        {
+            StringValue commentVal = new StringValue("Automatically generated with Ultimate BibTeX client.", StringValue.Style.BRACED);
+            BibTeXComment comment = new BibTeXComment(commentVal);
+            db.addObject(comment);
+        }
+        
+        for (Reference ref : refs)
+        {
+            BibTeXEntry entry = new BibTeXEntry(new Key("inproceedings "), new Key(ref.getRefkey()));
+            addif("Author", ref.getAuthor(), entry, BibTeXEntry.KEY_AUTHOR);
+            addif("Editor", ref.getEditor(), entry, BibTeXEntry.KEY_EDITOR);
+            addif("Title", ref.getTitle(), entry, BibTeXEntry.KEY_TITLE);
+            addif("Booktitle", ref.getBooktitle(), entry, BibTeXEntry.KEY_BOOKTITLE);
+            addif("Pages", ref.getPages(), entry, BibTeXEntry.KEY_PAGES);
+            addif("Volume", ref.getVolume(), entry, BibTeXEntry.KEY_VOLUME);
+            addif("Number", ref.getNumber(), entry, BibTeXEntry.KEY_NUMBER);
+            addif("Series", ref.getSeries(), entry, BibTeXEntry.KEY_SERIES);
+            addif("Publisher", ref.getPublisher(), entry, BibTeXEntry.KEY_PUBLISHER);
+            addif("Address", ref.getAddress(), entry, BibTeXEntry.KEY_ADDRESS);
+            addif("Year", ref.getYear(), entry, BibTeXEntry.KEY_YEAR);
+            addif("Month", ref.getMonth(), entry, BibTeXEntry.KEY_MONTH);
+            addif("Organization", ref.getOrganization(), entry, BibTeXEntry.KEY_ORGANIZATION);
+            addif("Note", ref.getNote(), entry, BibTeXEntry.KEY_NOTE);
+            addif("Key", ref.getKey(), entry, BibTeXEntry.KEY_KEY);
+
+        }
+        
+        
+        
+        
         OutputStreamWriter os = new OutputStreamWriter(stream, "UTF-8");
         PrintWriter pw = new PrintWriter(os);
 
