@@ -43,6 +43,7 @@ scenario 'modification succesfull with proper informations', {
     }
  
     then 'the NEW reference will be added in to system', {
+        driver.getPageSource().contains("<!-- This is the front page. -->").shouldBe true
         driver.getPageSource().contains("Ohtu2013").shouldBe true
     }
 }
@@ -72,6 +73,6 @@ scenario 'modification not succesfull with nonexist reference', {
     }
  
     then 'the NEW reference will be NOT be added in to system', {
-        driver.getPageSource().contains("Ohtu2013").shouldBe false
+        driver.getPageSource().contains("<!-- This is the front page. -->").shouldBe false
     }
 }

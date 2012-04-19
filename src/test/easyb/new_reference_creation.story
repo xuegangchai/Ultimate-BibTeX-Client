@@ -29,6 +29,7 @@ scenario "creation succesfull with proper informations", {
     }
  
     then 'the reference will be added in to system', {
+        driver.getPageSource().contains("<!-- This is the front page. -->").shouldBe true
         driver.getPageSource().contains("Ohtu2012").shouldBe true
     }
 }
@@ -53,6 +54,6 @@ scenario "creation not succesfull with required informations missing", {
     }
  
     then 'the reference should not be added in to system', {
-        driver.getPageSource().contains("Ohtu2012").shouldBe false
+        driver.getPageSource().contains("<!-- This is the front page. -->").shouldBe false
     }
 }
