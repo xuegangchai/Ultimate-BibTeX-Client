@@ -76,8 +76,21 @@ public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom
             int j = 0;
             for (String field : fields)
             {
-                Expression<String> fieldExp = from.get(field);
-                subpredicates[j] = cb.like(fieldExp, String.format("%%%s%%", escape(keyword)));
+                Expression<String> lhs;
+                Expression<String> rhs;
+                
+                {
+                    Expression<String> fieldExp = from.get(field);
+                    lhs = cb.lower(fieldExp);
+                }
+                
+                {
+                    String escaped = String.format("%%%s%%", escape(keyword));
+                    Expression<String> literal = cb.literal(escaped);
+                    rhs = cb.lower(literal);
+                }
+                
+                subpredicates[j] = cb.like(lhs, rhs);
                 j++;
             }
 
