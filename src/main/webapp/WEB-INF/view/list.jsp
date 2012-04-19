@@ -57,7 +57,7 @@
             <table width="400" cellpadding="5">
                 <tr>
                     <td>
-                        Etsi (huomioi kirjainkoko): <input type="text" name="keywords" size="30" maxlength="50"><button type="submit">Search</button>
+                        Etsi: <input type="text" name="keywords" size="30" maxlength="50"><button type="submit">Search</button>
                     </td>
                 </tr>
             </table>
