@@ -10,6 +10,8 @@ package ohtu.ultimatebibtexclient.controller;
  * @author chai
  */
 import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collection;
 import javax.servlet.ServletOutputStream;
@@ -17,10 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.service.ReferenceService;
-import ohtu.ultimatebibtexclient.util.BibtexWriter;
-import ohtu.ultimatebibtexclient.util.BibtexWriterImpl;
-import ohtu.ultimatebibtexclient.util.ErrorFormatter;
-import ohtu.ultimatebibtexclient.util.ResourceNotFoundException;
+import ohtu.ultimatebibtexclient.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -138,5 +137,19 @@ public class Controller
 
         response.setHeader("Content-Type", "text/x-bibtex");
         writer.write(refs, outputStream);
+    }
+    
+    
+    @RequestMapping(value = "read-bibtex", method = RequestMethod.POST)
+    @ResponseBody
+    public void addAcm(@RequestBody String content) throws Throwable
+    {
+        Reader reader = new StringReader(content);
+        BibtexReader bibReader = new BibtexReaderImpl();
+        Collection<Reference> refs = bibReader.read(reader);
+        for (Reference ref : refs)
+        {
+            referenceService.modify(ref);
+        }
     }
 }
