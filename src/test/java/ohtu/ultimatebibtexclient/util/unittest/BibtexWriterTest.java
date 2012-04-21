@@ -104,4 +104,28 @@ public class BibtexWriterTest extends SpringTestBase
 
         parseBibtex(stream);
     }
+    
+    
+    @Test
+    public void specialChar() throws IOException, ParseException
+    {
+        Reference ref = new Reference();
+        ref.setRefkey("test");
+        ref.setAuthor("å");
+        ref.setBooktitle("ä");
+        ref.setAddress("ö");
+        ref.setNote("Å");
+        ref.setSeries("Ä");
+        ref.setVolume("Ö");
+        Reference[] refs =
+        {
+            ref
+        };
+
+        BibtexWriter writer = new BibtexWriterImpl();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        writer.write(Arrays.asList(refs), stream);
+
+        parseBibtex(stream);
+    }
 }
