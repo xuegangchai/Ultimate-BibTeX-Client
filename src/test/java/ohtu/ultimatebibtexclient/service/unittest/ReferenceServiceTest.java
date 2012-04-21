@@ -5,6 +5,7 @@
 package ohtu.ultimatebibtexclient.service.unittest;
 
 
+import java.util.Arrays;
 import java.util.Collection;
 import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.service.ReferenceService;
@@ -89,5 +90,57 @@ public class ReferenceServiceTest extends SpringTestBase
         assertEquals("test", svc.fetchByID(ref.getId()).getKey());
 
         svc.delete(ref);
+    }
+
+
+    @Test
+    public void testSearch()
+    {
+        Reference ref1 = new Reference();
+        Reference ref2 = new Reference();
+        ref1.setAuthor("ASDF");
+        ref2.setAuthor("GHJK");
+        svc.modify(ref1);
+        svc.modify(ref2);
+
+        String[] keywords =
+        {
+            "ASDF"
+        };
+
+        Reference[] refs = new Reference[1];
+        refs = svc.findByKeywords(Arrays.asList(keywords)).toArray(refs);
+
+        assertEquals(1, refs.length);
+        assertEquals("ASDF", refs[0].getAuthor());
+
+        svc.delete(ref1);
+        svc.delete(ref2);
+    }
+
+
+    @Test
+    public void testSearchNoCase()
+    {
+        Reference ref1 = new Reference();
+        Reference ref2 = new Reference();
+        ref1.setAuthor("ASDF");
+        ref2.setAuthor("GHJK");
+        svc.modify(ref1);
+        svc.modify(ref2);
+
+        String[] keywords =
+        {
+            "asdf"
+        };
+
+        Reference[] refs = new Reference[1];
+        refs = svc.findByKeywords(Arrays.asList(keywords)).toArray(refs);
+
+        assertEquals(1, refs.length);
+        assertEquals("ASDF", refs[0].getAuthor());
+
+        svc.delete(ref1);
+        svc.delete(ref2);
     }
 }
