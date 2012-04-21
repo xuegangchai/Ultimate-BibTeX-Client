@@ -7,15 +7,14 @@ package ohtu.ultimatebibtexclient.util.unittest;
 
 import java.io.*;
 import java.util.Arrays;
+import java.util.Map;
 import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.util.BibtexWriter;
 import ohtu.ultimatebibtexclient.util.BibtexWriterImpl;
 import ohtu.ultimatebibtexclient.util.SpringTestBase;
-import org.jbibtex.BibTeXDatabase;
+import org.jbibtex.*;
 import org.junit.*;
 import static org.junit.Assert.*;
-import org.jbibtex.BibTeXParser;
-import org.jbibtex.ParseException;
 
 
 /**
@@ -24,15 +23,15 @@ import org.jbibtex.ParseException;
  */
 public class BibtexWriterTest extends SpringTestBase
 {
-    private void parseBibtex(ByteArrayOutputStream os) throws IOException, ParseException
+    private BibTeXDatabase parseBibtex(ByteArrayOutputStream os) throws IOException, ParseException
     {
         String content = os.toString("UTF-8");
         assertTrue(80 < content.length());
         Reader reader = new StringReader(content);
         
         BibTeXParser parser = new BibTeXParser();
-        BibTeXDatabase parse = parser.parse(reader);
-        assertNotNull(parser);
+        BibTeXDatabase db = parser.parse(reader);
+        return db;
     }
 
 
@@ -69,8 +68,25 @@ public class BibtexWriterTest extends SpringTestBase
     public void simple() throws IOException, ParseException
     {
         Reference ref = new Reference();
+        
+        // Setting all the values to test BibtexWriter's mapping.
         ref.setRefkey("refkey");
+        ref.setAddress("address");
+        ref.setAuthor("author");
         ref.setBooktitle("booktitle");
+        ref.setEditor("editor");
+        ref.setKey("key");
+        ref.setMonth(5);
+        ref.setNote("note");
+        ref.setNumber("number");
+        ref.setOrganization("organization");
+        ref.setPages("pages");
+        ref.setPublisher("publisher");
+        ref.setSeries("series");
+        ref.setTitle("title");
+        ref.setVolume("volume");
+        ref.setYear(1994);
+        
         Reference[] refs =
         {
             ref
@@ -79,8 +95,90 @@ public class BibtexWriterTest extends SpringTestBase
         BibtexWriter writer = new BibtexWriterImpl();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         writer.write(Arrays.asList(refs), stream);
+        
+        BibTeXDatabase db = parseBibtex(stream);
+        Map<Key, BibTeXEntry> entries = db.getEntries();
+        assertEquals(1, entries.size());
+        
+        Key[] keys =
+        {
+            BibTeXEntry.KEY_ADDRESS,
+            BibTeXEntry.KEY_AUTHOR,
+            BibTeXEntry.KEY_BOOKTITLE,
+            BibTeXEntry.KEY_EDITOR,
+            BibTeXEntry.KEY_KEY,
+            BibTeXEntry.KEY_MONTH,
+            BibTeXEntry.KEY_NOTE,
+            BibTeXEntry.KEY_NUMBER,
+            BibTeXEntry.KEY_ORGANIZATION,
+            BibTeXEntry.KEY_PAGES,
+            BibTeXEntry.KEY_PUBLISHER,
+            BibTeXEntry.KEY_SERIES,
+            BibTeXEntry.KEY_TITLE,
+            BibTeXEntry.KEY_VOLUME,
+            BibTeXEntry.KEY_YEAR,
+        };
+        
+        String[] expectedValues =
+        {
+            "address",
+            "author",
+            "booktitle",
+            "editor",
+            "key",
+            "5",
+            "note",
+            "number",
+            "organization",
+            "pages",
+            "publisher",
+            "series",
+            "title",
+            "volume",
+            "1994"
+        };
+        
+        BibTeXEntry entry = entries.get(new Key("refkey"));
+        assertNotNull(entry);
+        for (int i = 0, length = keys.length; i < length; i++)
+        {
+            assertEquals(expectedValues[i], entry.getField(keys[i]).toUserString());
+        }
+    }
+    
+    
+    @Test
+    public void multiple() throws IOException, ParseException
+    {
+        Reference ref1 = new Reference();
+        Reference ref2 = new Reference();
 
-        parseBibtex(stream);
+        ref1.setRefkey("ref1");
+        ref2.setRefkey("ref2");
+        ref1.setTitle("title1");
+        ref2.setTitle("title2");
+        
+        Reference[] refs =
+        {
+            ref1,
+            ref2
+        };
+
+        BibtexWriter writer = new BibtexWriterImpl();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        writer.write(Arrays.asList(refs), stream);
+        
+        BibTeXDatabase db = this.parseBibtex(stream);
+        Map<Key, BibTeXEntry> entries = db.getEntries();
+        assertEquals(2, entries.size());
+        
+        BibTeXEntry e1 = entries.get(new Key("ref1"));
+        BibTeXEntry e2 = entries.get(new Key("ref2"));
+        assertNotNull(e1);
+        assertNotNull(e2);
+
+        assertEquals("title1", e1.getField(BibTeXEntry.KEY_TITLE).toUserString());
+        assertEquals("title2", e2.getField(BibTeXEntry.KEY_TITLE).toUserString());
     }
 
 
@@ -89,10 +187,7 @@ public class BibtexWriterTest extends SpringTestBase
     {
         Reference ref = new Reference();
         ref.setRefkey("test");
-        ref.setAuthor("{");
-        ref.setBooktitle("}");
-        ref.setAddress("@");
-        ref.setNote("\"");
+        ref.setAuthor("{}@\"");
         Reference[] refs =
         {
             ref
@@ -102,7 +197,12 @@ public class BibtexWriterTest extends SpringTestBase
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         writer.write(Arrays.asList(refs), stream);
 
-        parseBibtex(stream);
+        BibTeXDatabase db = parseBibtex(stream);
+        Map<Key, BibTeXEntry> entries = db.getEntries();
+        assertEquals(1, entries.size());
+
+        BibTeXEntry e = entries.get(new Key("test"));
+        assertEquals("\\{\\}@{\"}", e.getField(BibTeXEntry.KEY_AUTHOR).toUserString());
     }
     
     
@@ -111,12 +211,7 @@ public class BibtexWriterTest extends SpringTestBase
     {
         Reference ref = new Reference();
         ref.setRefkey("test");
-        ref.setAuthor("å");
-        ref.setBooktitle("ä");
-        ref.setAddress("ö");
-        ref.setNote("Å");
-        ref.setSeries("Ä");
-        ref.setVolume("Ö");
+        ref.setAuthor("åäöÅÄÖ");
         Reference[] refs =
         {
             ref
@@ -126,6 +221,12 @@ public class BibtexWriterTest extends SpringTestBase
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         writer.write(Arrays.asList(refs), stream);
 
-        parseBibtex(stream);
+        BibTeXDatabase db = parseBibtex(stream);
+        Map<Key, BibTeXEntry> entries = db.getEntries();
+        assertEquals(1, entries.size());
+        
+        BibTeXEntry e = entries.get(new Key("test"));
+        assertEquals("{\\r{a}}{\\\"{a}}{\\\"{o}}{\\r{A}}{\\\"{A}}{\\\"{O}}",
+                     e.getField(BibTeXEntry.KEY_AUTHOR).toUserString());
     }
 }
