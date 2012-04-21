@@ -5,7 +5,10 @@
 package ohtu.ultimatebibtexclient.util.unittest;
 
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Map;
 import ohtu.ultimatebibtexclient.domain.Reference;
@@ -13,8 +16,8 @@ import ohtu.ultimatebibtexclient.util.BibtexWriter;
 import ohtu.ultimatebibtexclient.util.BibtexWriterImpl;
 import ohtu.ultimatebibtexclient.util.SpringTestBase;
 import org.jbibtex.*;
-import org.junit.*;
 import static org.junit.Assert.*;
+import org.junit.*;
 
 
 /**
