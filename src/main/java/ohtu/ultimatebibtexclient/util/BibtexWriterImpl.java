@@ -8,8 +8,8 @@ package ohtu.ultimatebibtexclient.util;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
 import java.text.CharacterIterator;
+import java.text.Normalizer;
 import java.text.StringCharacterIterator;
 import java.util.Collection;
 import ohtu.ultimatebibtexclient.domain.Reference;
@@ -23,24 +23,81 @@ import org.jbibtex.*;
  */
 public class BibtexWriterImpl implements BibtexWriter
 {
-    private void addif(String key, Object val, BibTeXEntry entry, Key key)
+    private class FieldSpec
     {
-        if (null != val)
+        private String name;
+        private Key key;
+        private String stringValue;
+        
+        public FieldSpec(String name, Key key, String stringVal)
         {
-            
-            entry.addField(key,
-            
-            
-            String str = val.toString();
-            pf.format("\t%s = \"%s\",\n", key, escape(str));
+            this.name = name;
+            this.key = key;
+            this.stringValue = stringVal;
+        }
+        
+        public void addTo(BibTeXEntry entry, LaTeXPrinter printer)
+        {
+            if(null != stringValue)
+            {
+                String escaped = BibtexWriterImpl.escape(stringValue);
+                StringValue value = new StringValue(escaped, StringValue.Style.QUOTED);
+                entry.addField(key, value);
+            }
         }
     }
-
-
+    
+    
+    private static String escape(String val)
+    {
+        val = Normalizer.normalize(val, Normalizer.Form.NFC);
+        StringBuilder sb = new StringBuilder();
+        final CharacterIterator it = new StringCharacterIterator(val);
+        for (char c = it.first(); c != CharacterIterator.DONE; c = it.next())
+        {
+            switch (c)
+            {
+                case '{':
+                    sb.append("\\{");
+                    break;
+                case '}':
+                    sb.append("\\}");
+                    break;
+                case '"':
+                    sb.append("{\"}");
+                    break;
+                case 'å':
+                    sb.append("{\\r{a}}");
+                    break;
+                case 'Å':
+                    sb.append("{\\r{A}}");
+                    break;
+                case 'ä':
+                    sb.append("{\\\"{a}}");
+                    break;
+                case 'Ä':
+                    sb.append("{\\\"{A}}");
+                    break;
+                case 'ö':
+                    sb.append("{\\\"{o}}");
+                    break;
+                case 'Ö':
+                    sb.append("{\\\"{O}}");
+                    break;
+                default:
+                    sb.append(c);
+                    break;
+            }
+        }
+        return sb.toString();
+    }
+    
+    
     @Override
     public void write(Collection<Reference> refs, OutputStream stream) throws IOException
     {
         BibTeXDatabase db = new BibTeXDatabase();
+        LaTeXPrinter printer = new LaTeXPrinter();
         
         {
             StringValue commentVal = new StringValue("Automatically generated with Ultimate BibTeX client.", StringValue.Style.BRACED);
@@ -50,66 +107,37 @@ public class BibtexWriterImpl implements BibtexWriter
         
         for (Reference ref : refs)
         {
-            BibTeXEntry entry = new BibTeXEntry(new Key("inproceedings "), new Key(ref.getRefkey()));
-            addif("Author", ref.getAuthor(), entry, BibTeXEntry.KEY_AUTHOR);
-            addif("Editor", ref.getEditor(), entry, BibTeXEntry.KEY_EDITOR);
-            addif("Title", ref.getTitle(), entry, BibTeXEntry.KEY_TITLE);
-            addif("Booktitle", ref.getBooktitle(), entry, BibTeXEntry.KEY_BOOKTITLE);
-            addif("Pages", ref.getPages(), entry, BibTeXEntry.KEY_PAGES);
-            addif("Volume", ref.getVolume(), entry, BibTeXEntry.KEY_VOLUME);
-            addif("Number", ref.getNumber(), entry, BibTeXEntry.KEY_NUMBER);
-            addif("Series", ref.getSeries(), entry, BibTeXEntry.KEY_SERIES);
-            addif("Publisher", ref.getPublisher(), entry, BibTeXEntry.KEY_PUBLISHER);
-            addif("Address", ref.getAddress(), entry, BibTeXEntry.KEY_ADDRESS);
-            addif("Year", ref.getYear(), entry, BibTeXEntry.KEY_YEAR);
-            addif("Month", ref.getMonth(), entry, BibTeXEntry.KEY_MONTH);
-            addif("Organization", ref.getOrganization(), entry, BibTeXEntry.KEY_ORGANIZATION);
-            addif("Note", ref.getNote(), entry, BibTeXEntry.KEY_NOTE);
-            addif("Key", ref.getKey(), entry, BibTeXEntry.KEY_KEY);
+            // Command pattern.
+            FieldSpec[] specs = {
+                new FieldSpec("Author", BibTeXEntry.KEY_AUTHOR, ref.getAuthor()),
+                new FieldSpec("Editor", BibTeXEntry.KEY_EDITOR, ref.getEditor()),
+                new FieldSpec("Title", BibTeXEntry.KEY_TITLE, ref.getTitle()),
+                new FieldSpec("Booktitle", BibTeXEntry.KEY_BOOKTITLE, ref.getBooktitle()),
+                new FieldSpec("Pages", BibTeXEntry.KEY_PAGES, ref.getPages()),
+                new FieldSpec("Volume", BibTeXEntry.KEY_VOLUME, ref.getVolume()),
+                new FieldSpec("Number", BibTeXEntry.KEY_NUMBER, ref.getNumber()),
+                new FieldSpec("Series", BibTeXEntry.KEY_SERIES, ref.getSeries()),
+                new FieldSpec("Publisher", BibTeXEntry.KEY_PUBLISHER, ref.getPublisher()),
+                new FieldSpec("Address", BibTeXEntry.KEY_ADDRESS, ref.getAddress()),
+                new FieldSpec("Year", BibTeXEntry.KEY_YEAR, String.format("%d", ref.getYear())),
+                new FieldSpec("Month", BibTeXEntry.KEY_MONTH, String.format ("%d", ref.getMonth())),
+                new FieldSpec("Organization", BibTeXEntry.KEY_ORGANIZATION, ref.getOrganization()),
+                new FieldSpec("Note", BibTeXEntry.KEY_NOTE, ref.getNote()),
+                new FieldSpec("Key", BibTeXEntry.KEY_KEY, ref.getKey()),
+            };
 
-        }
-        
-        
-        
-        
-        OutputStreamWriter os = new OutputStreamWriter(stream, "UTF-8");
-        PrintWriter pw = new PrintWriter(os);
-
-        pw.append("@comment { Automatically generated with Ultimate BibTeX client. }\n\n");
-
-        int nullcount = 0;
-        for (Reference ref : refs)
-        {
-            pw.append("@inproceedings {\n");
-
-            String refkey = ref.getRefkey();
-            if (null == refkey)
+            BibTeXEntry entry = new BibTeXEntry(new Key("inproceedings"), new Key(ref.getRefkey()));
+            for (FieldSpec spec : specs)
             {
-                refkey = String.format("unset-refkey-%d", nullcount);
-                nullcount++;
+                spec.addTo(entry, printer);
             }
-            pw.format("\t%s,\n", refkey);
-
-            addif("Author", ref.getAuthor(), pw);
-            addif("Editor", ref.getEditor(), pw);
-            addif("Title", ref.getTitle(), pw);
-            addif("Booktitle", ref.getBooktitle(), pw);
-            addif("Pages", ref.getPages(), pw);
-            addif("Volume", ref.getVolume(), pw);
-            addif("Number", ref.getNumber(), pw);
-            addif("Series", ref.getSeries(), pw);
-            addif("Publisher", ref.getPublisher(), pw);
-            addif("Address", ref.getAddress(), pw);
-            addif("Year", ref.getYear(), pw);
-            addif("Month", ref.getMonth(), pw);
-            addif("Organization", ref.getOrganization(), pw);
-            addif("Note", ref.getNote(), pw);
-            addif("Key", ref.getKey(), pw);
-
-            pw.append("}\n");
+            
+            db.addObject(entry);
         }
-
-        pw.flush();
-        os.flush();
+        
+        OutputStreamWriter writer = new OutputStreamWriter(stream);
+        BibTeXFormatter formatter = new BibTeXFormatter();
+        formatter.format(db, writer);
+        writer.flush();
     }
 }
