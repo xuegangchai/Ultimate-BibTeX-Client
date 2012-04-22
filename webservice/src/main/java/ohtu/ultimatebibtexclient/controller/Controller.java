@@ -14,6 +14,7 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.EnumSet;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
@@ -21,6 +22,7 @@ import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.service.ReferenceService;
 import ohtu.ultimatebibtexclient.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -140,8 +142,21 @@ public class Controller
     }
     
     
+    @RequestMapping(value = "read-bibtex", method = RequestMethod.OPTIONS)
+    public ResponseEntity addAcmOptions()
+    {
+        MediaType[] mediaTypes = {new MediaType("text", "x-bibtex")};
+        HttpHeaders headers = new HttpHeaders();
+        headers.setAllow(EnumSet.of(HttpMethod.POST));
+        headers.set("Access-Control-Allow-Origin", "http://dl.acm.org");
+        headers.set("Access-Control-Allow-Methods", "POST");
+        headers.set("Access-Control-Allow-Headers", "Content-Type");
+        headers.setAccept(Arrays.asList(mediaTypes));
+        return new ResponseEntity(headers, HttpStatus.OK);
+    }
+
+
     @RequestMapping(value = "read-bibtex", method = RequestMethod.POST)
-    @ResponseBody
     public void addAcm(@RequestBody String content) throws Throwable
     {
         Reader reader = new StringReader(content);
