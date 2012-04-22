@@ -25,22 +25,18 @@ javascript:(function()
         if(id)
         {
             var el = document.getElementById(id);
-            alert(el);
             var content = el.innerHTML;
-            alert (content);
             
             var xhr = new XMLHttpRequest();
             xhr.open("POST", serviceUrl, true);
-            xhr.withCredentials = "true";
-            xhr.onreadystatechange = function() {
-                if(4 == xhr.readyState)
+            xhr.setRequestHeader("Content-Type", "text/x-bibtex");
+            xhr.onreadystatechange = function(evt) {
+                if(this.DONE == this.readyState)
                 {
-                    if(200 == xhr.status)
+                    if(200 == this.status || (0 == this.status && (!this.statusText) && (!this.responseText)))
                         window.alert("Lisätty!");
                     else
-                    {
-                        handleError(xhr.responseText);
-                    }
+                        handleError(this.statusText + "\n" + this.responseText);
                 }
             };
             xhr.send(content);
