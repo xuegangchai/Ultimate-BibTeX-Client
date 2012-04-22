@@ -16,7 +16,7 @@
     </properties>
 
     <modules>
-        <module>java-bibtex</module>
+        <module>jbibtex</module>
         <module>webservice</module>
     </modules>
 </project>
