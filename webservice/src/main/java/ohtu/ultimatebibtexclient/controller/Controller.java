@@ -143,7 +143,7 @@ public class Controller
     
     
     @RequestMapping(value = "read-bibtex", method = RequestMethod.OPTIONS)
-    public ResponseEntity addAcmOptions()
+    public ResponseEntity addBibtexOptions()
     {
         MediaType[] mediaTypes = {new MediaType("text", "x-bibtex")};
         HttpHeaders headers = new HttpHeaders();
@@ -157,7 +157,7 @@ public class Controller
 
 
     @RequestMapping(value = "read-bibtex", method = RequestMethod.POST)
-    public void addAcm(@RequestBody String content) throws Throwable
+    public void addBibtex(@RequestBody String content) throws Throwable
     {
         Reader reader = new StringReader(content);
         BibtexReader bibReader = new BibtexReaderImpl();
