@@ -6,11 +6,20 @@ package ohtu.ultimatebibtexclient.controller.integration;
 
 
 import com.gargoylesoftware.htmlunit.javascript.host.Element;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import ohtu.ultimatebibtexclient.util.HtmlUnitDriver;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.springframework.http.HttpRequest;
 
 
 /**
@@ -79,5 +88,36 @@ public class BibtexGenerationIT
         assertEquals ("text/x-bibtex", driver.getMimeType());
         String source = driver.getPageSource();
         assertTrue(-1 != source.indexOf("John Q. Public"));
+    }
+    
+    
+    @Test
+    public void testUploading() throws UnsupportedEncodingException, IOException
+    {
+        // Given we have a reference to upload
+        String input = "@proceedings{Doudi:2010:1877808,\n"
+                       + "title = {3DOR '10: Proceedings of the ACM workshop on 3D object retrieval},\n"
+                       + "year = {2010},\n"
+                       + "isbn = {978-1-4503-0160-2},\n"
+                       + "location = {Firenze, Italy},\n"
+                       + "note = {433107},\n"
+                       + "publisher = {ACM},\n"
+                       + "address = {New York, NY, USA},\n"
+                       + "} ";
+        
+        // When the reference is uploaded
+        HttpClient client = new DefaultHttpClient();
+        HttpPost post = new HttpPost("http://localhost:8088/read-bibtex");
+        HttpEntity ent = new StringEntity(input, "text/x-bibtex", "UTF-8");
+        post.setHeader("Content-Type", "text/x-bibtex");
+        post.setEntity(ent);
+        HttpResponse response = client.execute(post);
+        
+        // Then the reference will be added.
+        assertEquals(200, response.getStatusLine().getStatusCode());
+        
+        HtmlUnitDriver driver = new HtmlUnitDriver();
+        driver.get("http://localhost:8088");
+        assertTrue(driver.getPageSource().contains("3DOR"));
     }
 }
