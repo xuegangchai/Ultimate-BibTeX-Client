@@ -20,17 +20,28 @@ import org.jbibtex.*;
  */
 public class BibtexReaderImpl implements BibtexReader
 {
+    public BibtexReaderImpl()
+    {
+    }
+    
+    
     private String stringValue(BibTeXEntry entry, Key key)
     {
-        Value val = entry.getField(BibTeXEntry.KEY_ADDRESS);
-        return val.toUserString();
+		String retval = null;
+        Value val = entry.getField(key);
+		if(null != val)
+			retval = val.toUserString();
+        return retval;
     }
     
     
     private Integer integerValue(BibTeXEntry entry, Key key)
     {
+		Integer retval = null;
         String stringVal = stringValue(entry, key);
-        return Integer.parseInt(stringVal);
+		if (null != stringVal)
+			retval = Integer.parseInt(stringVal);
+        return retval;
     }
     
     
