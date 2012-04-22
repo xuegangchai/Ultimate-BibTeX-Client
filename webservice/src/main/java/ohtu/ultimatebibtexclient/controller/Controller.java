@@ -157,7 +157,8 @@ public class Controller
 
 
     @RequestMapping(value = "read-bibtex", method = RequestMethod.POST)
-    public void addBibtex(@RequestBody String content) throws Throwable
+    @ResponseBody
+    public String addBibtex(@RequestBody String content) throws Throwable
     {
         Reader reader = new StringReader(content);
         BibtexReader bibReader = new BibtexReaderImpl();
@@ -166,5 +167,6 @@ public class Controller
         {
             referenceService.modify(ref);
         }
+        return "";
     }
 }
