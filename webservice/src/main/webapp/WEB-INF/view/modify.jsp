@@ -118,7 +118,7 @@
                     </tr>
                     <tr>
                         <th>Kuukausi</th>
-                        <td><form:input path="month"/>
+                        <td><form:input path="month" type="number" min="1" max="12" />
                             <form:errors path="month" /></td>
                         <td>- Julkaisukuukausi tai julkaisemattomalle kirjoituskuukausi</td>
                     </tr>
@@ -139,6 +139,11 @@
                         <td><form:input path="key"/>
                             <form:errors path="key" /></td>
                         <td>- Aakkoselliseen järjestämiseen käytettävä avain kuin kun tekijä- ja editori-kentät puuttuvat</td>
+                    </tr>
+                      <th>Journal</th>
+                        <td><form:input path="journal"/>
+                            <form:errors path="journal" /></td>
+                        <td>- Journalin tai lehden nimi jos artikkeli </td>
                     </tr>
                     <tr>
                         <th>Tags</th>
