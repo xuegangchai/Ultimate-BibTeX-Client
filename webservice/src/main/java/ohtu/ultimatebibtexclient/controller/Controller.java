@@ -39,6 +39,7 @@ public class Controller
     public String listReferences(Model model)
     {
         model.addAttribute("references", referenceService.fetch());
+        model.addAttribute("searchword", "");
         return "list";
     }
 
@@ -60,8 +61,8 @@ public class Controller
         String retval = "redirect:/";
         if (res.hasErrors())
         {
-            model.addAttribute("ref", ref);
-            model.addAttribute("errorFormatter", new ErrorFormatter(res));
+            // model.addAttribute("ref", ref);
+            // model.addAttribute("errorFormatter", new ErrorFormatter(res));
             model.addAttribute("title", "Luo uusi viite");
             model.addAttribute("action", "reference");
             model.addAttribute("button", "lisää");
@@ -89,9 +90,9 @@ public class Controller
 
         model.addAttribute("title", "Muokkaa viitettä");
         model.addAttribute("action", String.format("reference/%d", refID));
-        model.addAttribute("ref", ref);
+        //model.addAttribute("ref", ref);
         model.addAttribute("button", "tallenna");
-        model.addAttribute("reference", referenceService.fetchByID(refID));
+        model.addAttribute("reference", ref);
         return "modify";
     }
 
@@ -108,7 +109,7 @@ public class Controller
 
         if (res.hasErrors())
         {
-            model.addAttribute("ref", ref);
+            //model.addAttribute("ref", ref);
             model.addAttribute("errorFormatter", new ErrorFormatter(res));
             model.addAttribute("title", "Muokkaa viitettä");
             model.addAttribute("action", String.format("reference/%d", refID));
@@ -132,6 +133,7 @@ public class Controller
         String[] kwArray = content.split("\\s+");
         Collection<Reference> refs = referenceService.findByKeywords(Arrays.asList(kwArray));
         model.addAttribute("references", refs);
+        model.addAttribute("searchword", content);
         return "list";
     }
 

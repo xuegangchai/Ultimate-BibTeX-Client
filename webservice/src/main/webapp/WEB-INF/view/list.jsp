@@ -57,7 +57,7 @@
             <table width="400" cellpadding="5">
                 <tr>
                     <td>
-                        Etsi: <input type="text" name="keywords" size="30" maxlength="50"><button type="submit">Search</button>
+                        Etsi: <input type="text" name="keywords" size="30" maxlength="50" value="${searchword}"><button type="submit">Search</button>
                     </td>
                 </tr>
             </table>
@@ -65,24 +65,28 @@
         <table>
             <thead>
                 <tr id="list">
+                    <th>Viitetyyppi</th>
                     <th>Tekijä</th>
                     <th>Artikkelin nimi</th>
                     <th>Kirjan nimi</th>
                     <th>Vuosi</th>
                     <th>Sivut</th>
                     <th>Julkaisija</th>
+                    <th>Tagit</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="ref" items="${references}">
                     <tr>
+                        <td>${ref.type}</td>
                         <td>${ref.author}</td>
                         <td>${ref.title}</td>
                         <td>${ref.booktitle}</td>
                         <td>${ref.year}</td>
                         <td>${ref.pages}</td>
                         <td>${ref.publisher}</td>
+                        <td>${ref.tags}</td>
                         <td><a href="${pageContext.request.contextPath}/reference/${ref.id}" name="${ref.title}">Muokkaa</a></td>
                     </tr>
                 </c:forEach>
