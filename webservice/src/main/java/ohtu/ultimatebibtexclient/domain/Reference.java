@@ -25,29 +25,122 @@ public class Reference implements Serializable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     private String refkey;			// Shorthand for accessing this reference from LaTeX.
-
+    private String type;              //The type of the recerence (article, book, inproceedings)
     /*
      * Inproceedings fields from Wikipedia, http://en.wikipedia.org/wiki/BibTeX
      *
      */
-    private String author;	// The name(s) of the author(s) (in the case of more than one author, separated by and)
-    private String editor;	// The name(s) of the editor(s)
-    private String title;	// The title of the work
-    private String booktitle;	// The title of the book, if only part of it is being cited
-    private String pages;	// Page numbers, separated either by commas or double-hyphens.
-    private String volume;	// The volume of a journal or multi-volume book
-    private String number;	// The "(issue) number" of a journal, magazine, or tech-report, if applicable. (Most publications have a "volume", but no "number" field.)
-    private String series;	// The series of books the book was published in (e.g. "The Hardy Boys" or "Lecture Notes in Computer Science")
-    private String publisher;	// The publisher's name
-    private String address;	// publisher's address or city
-    private Integer year;	// The year of publication (or, if unpublished, the year of creation)
+    
+    /**
+     * (scope: article, inproceedings) in book: 'author/editor'. 
+     * The name(s) of the author(s) (in the case of more than one author, separated by and)
+     */
+    private String author;	 
+    
+    /**
+     * (scope: inproceedings)
+     * The name(s) of the editor(s)
+     */
+    private String editor;	
+    
+    /**
+     * (scope: article, book, inproceedings)
+     * The title of the work
+     */
+    private String title;	
+    
+    /**
+     * (scope: inproceedings)
+     * The title of the book, if only part of it is being cited
+     */
+    private String booktitle;
+    
+    /**
+     * (scope: article, inproceedings)
+     * Page numbers, separated either by commas or double-hyphens.
+     */
+    private String pages;
+    
+    /**
+     * (scope: article) in book and inproceedings: 'volume/number'
+     * The volume of a journal or multi-volume book
+     */
+    private String volume;
+    
+    /**
+     * (scope: article)
+     * The "(issue) number" of a journal, magazine, or tech-report, 
+     * if applicable. (Most publications have a "volume", but no "number" field.)
+     */
+    private String number;
+    
+    /**
+     * (scope: book, inproceedings)
+     * The series of books the book was published in (e.g. "The Hardy Boys" or "Lecture Notes in Computer Science")
+     */
+    private String series;
+    
+    /**
+     * (scope: book, inproceedings)
+     * The publisher's name
+     */
+    private String publisher;
+    
+    /**
+     * (scope: book, inproceedings)
+     * publisher's address or city
+     */
+    private String address;
+    
+    /**
+     * (scope: article, book, inproceedings)
+     * The year of publication (or, if unpublished, the year of creation)
+     */
+    private Integer year; 
     @Min(1)
     @Max(12)
-    private Integer month;	// The month of publication (or, if unpublished, the month of creation)
-    private String organization;	// The conference sponsor
-    private String note;	// Miscellaneous extra information
-    private String key;         // A hidden field used for specifying or overriding the alphabetical order of entries (when the "author" and "editor" fields are missing). Note that this is very different from the key (mentioned just after this list) that is used to cite or cross-reference the entry.
-    private String tags;    //tags that user can use sor sorting references 
+    
+    /**
+     * (scope: article, book, inproceedings)
+     * The month of publication (or, if unpublished, the month of creation)
+     */
+    private Integer month;
+    
+    /**
+     * (scope: inproceedings)
+     * The conference sponsor
+     */
+    private String organization;
+    
+    /**
+     * (scope: article)
+     */
+    private String journal;
+    
+    /**
+     * (scope: book)
+     */
+    private String edition;
+    
+    /**
+     * (scope: article, book, inproceedings)
+     * Miscellaneous extra information
+     */
+    private String note;
+    
+    /**
+     * (scope: article, book, inproceedings)
+     * A hidden field used for specifying or overriding the alphabetical order of entries 
+     * (when the "author" and "editor" fields are missing). Note that this is very different 
+     * from the key (mentioned just after this list) that is used to cite or cross-reference the entry.
+     */
+    private String key;  
+    
+    /**
+     * (scope: article, book, inproceedings)
+     * tags that user can use sor sorting references
+     */
+    private String tags;     
 
     public Reference()
     {
@@ -72,6 +165,19 @@ public class Reference implements Serializable
     }
 
 
+    public void setType(String type)
+    {
+        this.type = type;
+    }
+
+
+    public String getType()
+    {
+        return type;
+    }
+
+
+   
     public void setTags(String tags)
     {
         this.tags = tags;
@@ -267,5 +373,60 @@ public class Reference implements Serializable
     public void setYear(Integer year)
     {
         this.year = year;
+    }
+
+
+    public String getEdition()
+    {
+        return edition;
+    }
+
+
+    public String getJournal()
+    {
+        return journal;
+    }
+
+
+    public void setEdition(String edition)
+    {
+        this.edition = edition;
+    }
+
+
+    public void setJournal(String journal)
+    {
+        this.journal = journal;
+    }
+    
+    /**
+     * Method tests if the minimum of the required fields are used in this reference
+     * It does not validate any other fields
+     * @return true, if the required fields of a type are set, false, if not
+     */
+    public boolean isValidReference(){
+        
+        if(this.type.equals("article")){
+            if(this.author == null) return false;
+            if(this.title == null) return false;
+            if(this.journal == null) return false;
+            if(this.year == null) return false;
+            return true;
+        }
+        if(this.type.equals("book")){
+            if(this.author == null) return false;
+            if(this.title == null) return false;
+            if(this.publisher == null) return false;
+            if(this.year == null) return false;
+            return true;
+        }
+        if(this.type.equals("inproceedings")){
+            if(this.author == null) return false;
+            if(this.title == null) return false;
+            if(this.booktitle == null) return false;
+            if(this.year == null) return false;
+            return true;
+        }
+        return false;
     }
 }
