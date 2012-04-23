@@ -83,6 +83,7 @@
                     <th>Sivut</th>
                     <th>Julkaisija</th>
                     <th>Tagit</th>
+                    <th>Journal</th>               
                     <th></th>
                 </tr>
             </thead>
@@ -97,7 +98,11 @@
                         <td id="${ref.id}.pages" class="pages" >${ref.pages}</td>
                         <td id="${ref.id}.publisher" class="publisher" >${ref.publisher}</td>
                         <td id="${ref.id}.tags" class="tags" >${ref.tags}</td>
-                        <td class="modify" ><a href="${pageContext.request.contextPath}/reference/${ref.id}" id="${ref.id}.modify">Muokkaa</a></td>
+                        <td class="modify">
+                            <a href="${pageContext.request.contextPath}/reference/${ref.id}" id="${ref.id}.modify">
+                                Muokkaa
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
