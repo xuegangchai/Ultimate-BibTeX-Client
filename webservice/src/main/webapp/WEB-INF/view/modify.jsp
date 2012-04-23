@@ -5,6 +5,7 @@
 --%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="/WEB-INF/custom.tl" prefix="c"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 
 <!DOCTYPE html>
 <html>
@@ -31,98 +32,124 @@
     </head>
     <body>
         <h1><a href="${pageContext.request.contextPath}/">Etusivu</a></h1>
-        <form action="${pageContext.request.contextPath}/${action}" method="POST">
+        <form:form commandName="reference" action="${pageContext.request.contextPath}/${action}" method="POST">
             <table>
                 <tbody>
                     <tr>
+                        <th>Viitteen tyyppi</th>
+                        <td>
+                            Article: <form:radiobutton path="type" value="article" /><br />
+                            Book: <form:radiobutton path="type" value="book" /><br/>
+                            Inproceedings: <form:radiobutton path="type" value="inproceedings" />
+                        </td>
+                    </tr>
+                    
+                    <tr>
                         <th>Viiteavain</th>
-                        <td><input type="text" name="refkey" value="${ref.refkey}" required</td>
-                        <td>${c:formatErrors(errorFormatter, "refkey")}- LaTeXissa käytettävä viiteavain</td>
+                        <td><form:input path="refkey" required="required"/>
+                            <form:errors path="refkey" /></td>
+                        <td> - LaTeXissa käytettävä viiteavain</td>
                     </tr>
                     <tr>
                         <th>Tekijät</th>
-                        <td><input type="text" name="author" value="${ref.author}" required></td>
-                        <td>${c:formatErrors(errorFormatter, "author")} - Tekijöiden nimet </td>
+                        <td><form:input path="author" required="required"/>
+                            <form:errors path="author" /></td>
+                        <td>- Tekijöiden nimet </td>
                     </tr>
                     <tr>
                         <th>Toimittajat</th>
-                        <td><input type="text" name="editor" value="${ref.editor}"></td>
-                        <td>${c:formatErrors(errorFormatter, "editor")} - Toimittajien nimet</td>
+                        <td><form:input path="editor"/>
+                            <form:errors path="editor" /></td>
+                        <td> - Toimittajien nimet</td>
                     </tr>
                     <tr>
                         <th>Artikkelin nimi</th>
-                        <td><input type="text" name="title" value="${ref.title}" required></td>
-                        <td>${c:formatErrors(errorFormatter, "title")} - Siteerattavan työn nimi</td>
+                        <td><form:input path="title" required="required"/>
+                            <form:errors path="title" /></td>
+                        <td>- Siteerattavan työn nimi</td>
                     </tr>
                     <tr>
                         <th>Kirjan nimi</th>
-                        <td><input type="text" name="booktitle" value="${ref.booktitle}" required></td>
-                        <td>${c:formatErrors(errorFormatter, "booktitle")} - Kirjan nimi, jos vain osaa siitä siteerataan</td>
+                        <td><form:input path="booktitle" required="required"/>
+                            <form:errors path="booktitle" /></td>
+                        <td>- Kirjan nimi, jos vain osaa siitä siteerataan</td>
                     </tr>
                     <tr>
                         <th>Sivut</th>
-                        <td><input type="text" name="pages" value="${ref.pages}"></td>
-                        <td>${c:formatErrors(errorFormatter, "pages")} - Sivun numerot joko pilkuilla eroitettuina tai kantama väliviivoilla eroitettuina esim. "7,41,73--97"  </td>
+                        <td><form:input path="pages" />
+                            <form:errors path="pages" /></td>
+                        <td>- Sivun numerot joko pilkuilla eroitettuina tai kantama väliviivoilla eroitettuina esim. "7,41,73--97"  </td>
                     </tr>
                     <tr>
                         <th>Osa</th>
-                        <td><input type="text" name="volume" value="${ref.volume}"></td>
-                        <td>${c:formatErrors(errorFormatter, "volume")} - Mikä osa jos moniosainen kirja</td>
+                        <td><form:input path="volume"/>
+                            <form:errors path="volume" /></td>
+                        <td>- Mikä osa jos moniosainen kirja</td>
                     </tr>
                     <tr>
                         <th>Numero</th>
-                        <td><input type="text" name="number" value="${ref.number}"></td>
-                        <td>${c:formatErrors(errorFormatter, "number")} - Julkaisun numero jos sellaista on</td>
+                        <td><form:input path="number"/>
+                            <form:errors path="number" /></td>
+                        <td>- Julkaisun numero jos sellaista on</td>
                     </tr>
                     <tr>
                         <th>Sarja</th>
-                        <td><input type="text" name="series" value="${ref.series}"></td>
-                        <td>${c:formatErrors(errorFormatter, "series")} - Sarjan nimi jos kirja on osa kirjasarjaa</td>
+                        <td><form:input path="series"/>
+                            <form:errors path="series" /></td>
+                        <td>- Sarjan nimi jos kirja on osa kirjasarjaa</td>
                     </tr>
                     <tr>
                         <th>Julkaisija</th>
-                        <td><input type="text" name="publisher" value="${ref.publisher}"></td>
-                        <td>${c:formatErrors(errorFormatter, "publisher")} - Julkaisijan nimi </td>
+                        <td><form:input path="publisher"/>
+                            <form:errors path="publisher" /></td>
+                        <td>- Julkaisijan nimi </td>
                     </tr>
                     <tr>
                         <th>Julkaisijan osoite</th>
-                        <td><input type="text" name="address" value="${ref.address}"></td>
-                        <td>${c:formatErrors(errorFormatter, "address")} - Julkaisijan osoite tai kaupunki</td>
+                        <td><form:input path="address"/>
+                            <form:errors path="address" /></td>
+                        <td>- Julkaisijan osoite tai kaupunki</td>
                     </tr>
                     <tr>
                         <th>Vuosi</th>
-                        <td><input type="year" name="year" value="${ref.year}" required></td>
-                        <td>${c:formatErrors(errorFormatter, "year")} - Julkaisuvuosi tai julkaisettomalle kirjoitusvuosi</td>
+                        <td><form:input path="year" required="required"/>
+                            <form:errors path="year" /></td>
+                        <td>- Julkaisuvuosi tai julkaisettomalle kirjoitusvuosi</td>
                     </tr>
                     <tr>
                         <th>Kuukausi</th>
-                        <td><input type="number" name="month" value="${ref.month}"></td>
-                        <td>${c:formatErrors(errorFormatter, "month")} - Julkaisukuukausi tai julkaisemattomalle kirjoituskuukausi</td>
+                        <td><form:input path="month"/>
+                            <form:errors path="month" /></td>
+                        <td>- Julkaisukuukausi tai julkaisemattomalle kirjoituskuukausi</td>
                     </tr>
                     <tr>
                         <th>Organisaatio</th>
-                        <td><input type="text" name="organization" value="${ref.organization}"></td>
-                        <td>${c:formatErrors(errorFormatter, "organization")} - Konfrenssia sponsoroiva organisaatio </td>
+                        <td><form:input path="organization"/>
+                            <form:errors path="organization" /></td>
+                        <td>- Konfrenssia sponsoroiva organisaatio </td>
                     </tr>
                     <tr>
                         <th>Lisätietoja</th>
-                        <td><input type="text" name="note" value="${ref.note}"></td>
-                        <td>${c:formatErrors(errorFormatter, "note")} - Ylimääräistä lukijaa auttavaa informaatiota</td>
+                        <td><form:input path="note"/>
+                            <form:errors path="note" /></td>
+                        <td>- Ylimääräistä lukijaa auttavaa informaatiota</td>
                     </tr>
                     <tr>
                         <th>Järjestämisavain</th>
-                        <td><input type="text" name="key" value="${ref.key}"></td>
-                        <td>${c:formatErrors(errorFormatter, "key")} - Aakkoselliseen järjestämiseen käytettävä avain kuin kun tekijä- ja editori-kentät puuttuvat</td>
+                        <td><form:input path="key"/>
+                            <form:errors path="key" /></td>
+                        <td>- Aakkoselliseen järjestämiseen käytettävä avain kuin kun tekijä- ja editori-kentät puuttuvat</td>
                     </tr>
                     <tr>
                         <th>Tags</th>
-                        <td><input type="text" name="tags" value="${ref.tags}"></td>
-                        <td>${c:formatErrors(errorFormatter, "tags")} - Asiaan liittyvät tagit</td>
+                        <td><form:input path="tags"/>
+                            <form:errors path="tags" /></td>
+                        <td>- Asiaan liittyvät tagit</td>
                     </tr>
                     
                 </tbody>
             </table>
-            <button type="submit" id="submit">Lähetä</button>
-        </form>
+            <input type="submit" id="submit" value="${button}">
+        </form:form>
     </body>
 </html>

@@ -48,12 +48,14 @@ public class Controller
     {
         model.addAttribute("title", "Luo uusi viite");
         model.addAttribute("action", "reference");
+        model.addAttribute("button", "lisää");
+        model.addAttribute("reference", new Reference());
         return "modify";
     }
 
 
     @RequestMapping(value = "reference", method = RequestMethod.POST)
-    public String createReference(Model model, @Valid @ModelAttribute Reference ref, BindingResult res)
+    public String createReference(Model model, @Valid @ModelAttribute("reference")Reference ref, BindingResult res)
     {
         String retval = "redirect:/";
         if (res.hasErrors())
@@ -62,6 +64,7 @@ public class Controller
             model.addAttribute("errorFormatter", new ErrorFormatter(res));
             model.addAttribute("title", "Luo uusi viite");
             model.addAttribute("action", "reference");
+            model.addAttribute("button", "lisää");
             retval = "modify";
         }
         else
@@ -87,12 +90,14 @@ public class Controller
         model.addAttribute("title", "Muokkaa viitettä");
         model.addAttribute("action", String.format("reference/%d", refID));
         model.addAttribute("ref", ref);
+        model.addAttribute("button", "tallenna");
+        model.addAttribute("reference", referenceService.fetchByID(refID));
         return "modify";
     }
 
 
     @RequestMapping(value = "reference/{refID}", method = RequestMethod.POST)
-    public String modifyReference(Model model, @PathVariable int refID, @Valid @ModelAttribute Reference ref, BindingResult res)
+    public String modifyReference(Model model, @PathVariable int refID, @Valid @ModelAttribute("reference") Reference ref, BindingResult res)
     {
         String retval = "redirect:/";
         
@@ -107,6 +112,7 @@ public class Controller
             model.addAttribute("errorFormatter", new ErrorFormatter(res));
             model.addAttribute("title", "Muokkaa viitettä");
             model.addAttribute("action", String.format("reference/%d", refID));
+            model.addAttribute("button", "tallenna");
             retval = "modify";
         }
         else
