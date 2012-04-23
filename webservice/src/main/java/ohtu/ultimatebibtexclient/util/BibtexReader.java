@@ -17,5 +17,11 @@ import ohtu.ultimatebibtexclient.domain.Reference;
  */
 public interface BibtexReader
 {
+    /**
+     * 
+     * @param reader
+     * @return
+     * @throws Throwable 
+     */
     public Collection<Reference> read(Reader reader) throws Throwable;
 }

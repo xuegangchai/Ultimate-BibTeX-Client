@@ -29,6 +29,12 @@ public class BibtexWriterImpl implements BibtexWriter
         private Key key;
         private String stringValue;
         
+        /**
+         * 
+         * @param name
+         * @param key
+         * @param stringVal 
+         */
         public FieldSpec(String name, Key key, String stringVal)
         {
             this.name = name;
@@ -36,6 +42,11 @@ public class BibtexWriterImpl implements BibtexWriter
             this.stringValue = stringVal;
         }
         
+        /**
+         * 
+         * @param entry
+         * @param printer 
+         */
         public void addTo(BibTeXEntry entry, LaTeXPrinter printer)
         {
             if(null != stringValue)
@@ -47,7 +58,11 @@ public class BibtexWriterImpl implements BibtexWriter
         }
     }
     
-    
+    /**
+     * 
+     * @param val
+     * @return 
+     */
     private static String escape(String val)
     {
         val = Normalizer.normalize(val, Normalizer.Form.NFC);
@@ -92,7 +107,12 @@ public class BibtexWriterImpl implements BibtexWriter
         return sb.toString();
     }
     
-    
+    /**
+     * 
+     * @param refs
+     * @param stream
+     * @throws IOException 
+     */
     @Override
     public void write(Collection<Reference> refs, OutputStream stream) throws IOException
     {

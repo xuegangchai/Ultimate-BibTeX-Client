@@ -22,6 +22,12 @@ public class ErrorFormatter
     protected BindingResult bindingResult;
 
 
+    /**
+     * 
+     * @param formatter
+     * @param field
+     * @return 
+     */
     public static String formatErrors(ErrorFormatter formatter, String field)
     {
         String retval = "";
@@ -31,12 +37,21 @@ public class ErrorFormatter
     }
 
 
+    /**
+     * 
+     * @param res 
+     */
     public ErrorFormatter(BindingResult res)
     {
         bindingResult = res;
     }
 
 
+    /**
+     * 
+     * @param field
+     * @return 
+     */
     public String formatErrors(String field)
     {
         String retval = "";

@@ -26,7 +26,11 @@ public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom
     @PersistenceContext
     private EntityManager entityManager;
 
-
+    /**
+     * 
+     * @param val
+     * @return String returnvalue
+     */
     private String escape(String val)
     {
         String retval = val;
@@ -53,7 +57,12 @@ public class ReferenceRepositoryImpl implements ReferenceRepositoryCustom
         return retval;
     }
 
-
+    /**
+     * 
+     * @param fields
+     * @param keywords
+     * @return a collection of references based on the given keywords and reference fields
+     */
     @Override
     public Collection<Reference> findByKeywords(Collection<String> fields, Collection<String> keywords)
     {

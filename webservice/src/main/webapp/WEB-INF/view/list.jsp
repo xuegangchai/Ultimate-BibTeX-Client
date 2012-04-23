@@ -10,7 +10,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Viitteet</title>
-        <style type="text/css">
+        <style>
             h1 a {
                 color:#336699;
                 text-decoration:none;
@@ -44,7 +44,17 @@
                 text-align:left;
                 padding:5px;
             }
-        </style>
+            tbody th
+            {
+                text-align: right;
+            }
+
+            input[type=text]
+            {
+                width: 20em;
+            }
+           </style>
+        
     </head>
     <body>
         <!-- This is the front page. -->
@@ -79,15 +89,15 @@
             <tbody>
                 <c:forEach var="ref" items="${references}">
                     <tr>
-                        <td>${ref.type}</td>
-                        <td>${ref.author}</td>
-                        <td>${ref.title}</td>
-                        <td>${ref.booktitle}</td>
-                        <td>${ref.year}</td>
-                        <td>${ref.pages}</td>
-                        <td>${ref.publisher}</td>
-                        <td>${ref.tags}</td>
-                        <td><a href="${pageContext.request.contextPath}/reference/${ref.id}" name="${ref.title}">Muokkaa</a></td>
+                        <td id="${ref.id}.type" class="type" >${ref.type}</td>
+                        <td id="${ref.id}.author" class="author" >${ref.author}</td>
+                        <td id="${ref.id}.title" class="title" >${ref.title}</td>
+                        <td id="${ref.id}.booktitle" class="booktitle" >${ref.booktitle}</td>
+                        <td id="${ref.id}.year" class="year" >${ref.year}</td>
+                        <td id="${ref.id}.pages" class="pages" >${ref.pages}</td>
+                        <td id="${ref.id}.publisher" class="publisher" >${ref.publisher}</td>
+                        <td id="${ref.id}.tags" class="tags" >${ref.tags}</td>
+                        <td class="modify" ><a href="${pageContext.request.contextPath}/reference/${ref.id}" id="${ref.id}.modify">Muokkaa</a></td>
                     </tr>
                 </c:forEach>
             </tbody>

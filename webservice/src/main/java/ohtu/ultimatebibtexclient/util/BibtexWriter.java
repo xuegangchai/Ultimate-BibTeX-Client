@@ -18,5 +18,11 @@ import ohtu.ultimatebibtexclient.domain.Reference;
  */
 public interface BibtexWriter
 {
+    /**
+     * 
+     * @param refs
+     * @param stream
+     * @throws IOException 
+     */
 	public void write (Collection<Reference> refs, OutputStream stream) throws IOException;
 }

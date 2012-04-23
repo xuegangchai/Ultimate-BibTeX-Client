@@ -87,10 +87,19 @@ scenario "a created reference can be opened from the list view", {
         element.submit();
     }
     when 'user clicks \"muokkaa\"', {
-        element = driver.findElement(By.name("Ohtu2012"));
+        def list = driver.findElements(By.class("title");
+        def keyref = 0;
+        for (i in 0..<len) {
+            if(list[i].getText() == "Ohtu2012") {
+                def keyreflist = list[i].getAttribute("id").split(".");
+                keyref = keyreflist[0];
+            }
+        }
+        
+        element.driver.findElement(By.id(keyref+".modify"));
         element.click();
     }
-    then 'an empty form for creating a new reference is opened',{
+    then 'a filled form for modifying reference is opened',{
         driver.getPageSource().contains("Artikkelin nimi").shouldBe true;
         element = driver.findElement(By.name("title"));
         element.getAttribute("value").shouldBe "Ohtu2012";

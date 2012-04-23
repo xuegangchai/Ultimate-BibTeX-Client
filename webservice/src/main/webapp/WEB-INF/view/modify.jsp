@@ -12,12 +12,40 @@
     <head>
         <meta charset="UTF-8">
         <title>${title}</title>
-        <style type="text/css">
+        
+        <style>
             h1 a {
                 color:#336699;
                 text-decoration:none;
                 font-weight:normal;
                 padding-left:15px;
+            }
+            table {
+                font-size:0.9em;
+                font-family:Arial, Helvetica, verdana sans-serif;
+                width:100%;
+            }
+
+            thead th {
+                border-right:1px solid #fff;
+                color:#fff;
+                text-align:center;
+                text-transform:uppercase;
+                height:25px;
+                background-color:#336699;
+                font-weight:400;
+                padding:2px;
+            }
+
+            tbody tr#list {
+                background-color:#F0F0F0 ;
+                border-bottom:1px solid #D8D8D8;
+            }
+
+            tbody td {
+                color:#414141;
+                text-align:left;
+                padding:5px;
             }
             tbody th
             {
@@ -28,7 +56,8 @@
             {
                 width: 20em;
             }
-        </style>
+           </style>
+        
     </head>
     <body>
         <h1><a href="${pageContext.request.contextPath}/">Etusivu</a></h1>

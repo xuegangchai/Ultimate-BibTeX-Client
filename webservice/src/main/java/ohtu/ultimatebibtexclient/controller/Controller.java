@@ -34,7 +34,11 @@ public class Controller
     @Autowired
     private ReferenceService referenceService;
     
-    
+    /**
+     * 
+     * @param model
+     * @return reference to list.jps -page
+     */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listReferences(Model model)
     {
@@ -43,7 +47,11 @@ public class Controller
         return "list";
     }
 
-
+    /**
+     * 
+     * @param model
+     * @return reference to modify.jsp -page
+     */
     @RequestMapping(value = "create.html", method = RequestMethod.GET)
     public String showCreationForm(Model model)
     {
@@ -54,7 +62,13 @@ public class Controller
         return "modify";
     }
 
-
+    /**
+     * 
+     * @param model
+     * @param ref
+     * @param res
+     * @return a reference to front page or - in case of an error - back to modify.jsp-page
+     */
     @RequestMapping(value = "reference", method = RequestMethod.POST)
     public String createReference(Model model, @Valid @ModelAttribute("reference")Reference ref, BindingResult res)
     {
@@ -78,7 +92,12 @@ public class Controller
         return retval;
     }
 
-
+    /**
+     * 
+     * @param model
+     * @param refID
+     * @return reference to modify.jsp-page
+     */
     @RequestMapping(value = "reference/{refID}", method = RequestMethod.GET)
     public String showModificationForm(Model model, @PathVariable Integer refID)
     {
@@ -96,7 +115,14 @@ public class Controller
         return "modify";
     }
 
-
+    /**
+     * 
+     * @param model
+     * @param refID
+     * @param ref
+     * @param res
+     * @return a reference to front page or - in case of an error - back to modify.jsp-page
+     */
     @RequestMapping(value = "reference/{refID}", method = RequestMethod.POST)
     public String modifyReference(Model model, @PathVariable int refID, @Valid @ModelAttribute("reference") Reference ref, BindingResult res)
     {
@@ -125,7 +151,12 @@ public class Controller
         return retval;
     }
     
-    
+    /**
+     * 
+     * @param model
+     * @param keywords
+     * @return a reference to list.jsp-page
+     */
     @RequestMapping(value = "search", method = RequestMethod.POST)
     public String searchReferences(Model model, @RequestParam String keywords)
     {
@@ -137,7 +168,11 @@ public class Controller
         return "list";
     }
 
-
+    /**
+     * 
+     * @param response
+     * @throws IOException 
+     */
     @RequestMapping(value = "bibtex", method = RequestMethod.GET)
     public void fetchReferencesAsBibtex(HttpServletResponse response) throws IOException
     {
@@ -149,7 +184,10 @@ public class Controller
         writer.write(refs, outputStream);
     }
     
-    
+    /**
+     * 
+     * @return 
+     */
     @RequestMapping(value = "read-bibtex", method = RequestMethod.OPTIONS)
     public ResponseEntity addBibtexOptions()
     {
@@ -163,7 +201,12 @@ public class Controller
         return new ResponseEntity(headers, HttpStatus.OK);
     }
 
-
+    /**
+     * 
+     * @param content
+     * @return
+     * @throws Throwable 
+     */
     @RequestMapping(value = "read-bibtex", method = RequestMethod.POST)
     @ResponseBody
     public String addBibtex(@RequestBody String content) throws Throwable

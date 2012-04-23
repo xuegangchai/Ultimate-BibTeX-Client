@@ -20,11 +20,19 @@ import org.jbibtex.*;
  */
 public class BibtexReaderImpl implements BibtexReader
 {
+    /**
+     * 
+     */
     public BibtexReaderImpl()
     {
     }
     
-    
+    /**
+     * 
+     * @param entry
+     * @param key
+     * @return 
+     */
     private String stringValue(BibTeXEntry entry, Key key)
     {
 		String retval = null;
@@ -34,7 +42,12 @@ public class BibtexReaderImpl implements BibtexReader
         return retval;
     }
     
-    
+    /**
+     * 
+     * @param entry
+     * @param key
+     * @return 
+     */
     private Integer integerValue(BibTeXEntry entry, Key key)
     {
 		Integer retval = null;
@@ -44,7 +57,11 @@ public class BibtexReaderImpl implements BibtexReader
         return retval;
     }
     
-    
+    /**
+     * 
+     * @param db
+     * @return 
+     */
     public Collection<Reference> read(BibTeXDatabase db)
     {
         Collection<Reference> retval = new ArrayList<Reference>();
@@ -79,6 +96,12 @@ public class BibtexReaderImpl implements BibtexReader
     }
 
 
+    /**
+     * 
+     * @param reader
+     * @return
+     * @throws Throwable 
+     */
     @Override
     public Collection<Reference> read(Reader reader) throws Throwable
     {
