@@ -12,7 +12,7 @@
     <head>
         <meta charset="UTF-8">
         <title>${title}</title>
-        
+
         <style>
             h1 a {
                 color:#336699;
@@ -56,8 +56,8 @@
             {
                 width: 20em;
             }
-           </style>
-        
+        </style>
+
     </head>
     <body>
         <h1><a href="${pageContext.request.contextPath}/">Etusivu</a></h1>
@@ -72,7 +72,7 @@
                             Inproceedings: <form:radiobutton id="inproceedingsButton" path="type" value="inproceedings" />
                         </td>
                     </tr>
-                    
+
                     <tr>
                         <th>Viiteavain</th>
                         <td><form:input id="refkey" path="refkey" />
@@ -169,73 +169,71 @@
                             <form:errors path="key" /></td>
                         <td>- Aakkoselliseen järjestämiseen käytettävä avain kuin kun tekijä- ja editori-kentät puuttuvat</td>
                     </tr>
-                      <th>Journal</th>
-                        <td><form:input id="journal" path="journal"/>
-                            <form:errors path="journal" /></td>
-                        <td>- Journalin tai lehden nimi jos artikkeli </td>
-                    </tr>
-                    <tr>
-                        <th>Tags</th>
-                        <td><form:input id="tags" path="tags"/>
-                            <form:errors path="tags" /></td>
-                        <td>- Asiaan liittyvät tagit</td>
-                    </tr>
-                    
-                </tbody>
-            </table>
-            <input type="submit" id="submit" value="${button}">
-        </form:form>
-            
-                         <script language="javascript">
-if (document.addEventListener)
-{
+                <th>Journal</th>
+                <td><form:input id="journal" path="journal"/>
+                    <form:errors path="journal" /></td>
+                <td>- Journalin tai lehden nimi jos artikkeli </td>
+            </tr>
+            <tr>
+                <th>Tags</th>
+                <td><form:input id="tags" path="tags"/>
+                    <form:errors path="tags" /></td>
+                <td>- Asiaan liittyvät tagit</td>
+            </tr>
 
-	document.getElementById("articleButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-        document.getElementById("author").required="required";
-        document.getElementById("author").placeholder = "required";
-        document.getElementById("title").required="required";
-        document.getElementById("title").placeholder = "required";
-        document.getElementById("journal").required="required";
-        document.getElementById("journal").placeholder = "required";
+        </tbody>
+    </table>
+    <input type="submit" id="submit" value="${button}">
+</form:form>
+
+<script language="javascript">
+    if (document.addEventListener)
+    {
+
+        document.getElementById("articleButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
+            document.getElementById("author").required="required";
+            document.getElementById("author").placeholder = "required";
+            document.getElementById("title").required="required";
+            document.getElementById("title").placeholder = "required";
+            document.getElementById("journal").required="required";
+            document.getElementById("journal").placeholder = "required";
         
-        document.getElementById("year").required="required";
-        document.getElementById("year").placeholder = "required";
-};
+            document.getElementById("year").required="required";
+            document.getElementById("year").placeholder = "required";
+        };
 
 
-document.getElementById("bookButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-        document.getElementById("author").required="required";
-        document.getElementById("author").placeholder = "required";
-        document.getElementById("title").required="required";
-        document.getElementById("title").placeholder = "required";
-        document.getElementById("publisher").required="required";
-        document.getElementById("publisher").placeholder = "required";
+        document.getElementById("bookButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
+            document.getElementById("author").required="required";
+            document.getElementById("author").placeholder = "required";
+            document.getElementById("title").required="required";
+            document.getElementById("title").placeholder = "required";
+            document.getElementById("publisher").required="required";
+            document.getElementById("publisher").placeholder = "required";
         
-        document.getElementById("year").required="required";
-        document.getElementById("year").placeholder = "required";
-};
+            document.getElementById("year").required="required";
+            document.getElementById("year").placeholder = "required";
+        };
 
-document.getElementById("inproceedingsButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-        document.getElementById("author").required="required";
-        document.getElementById("author").placeholder = "required";
-        document.getElementById("title").required="required";
-        document.getElementById("title").placeholder = "required";
-        document.getElementById("booktitle").required="required";
-        document.getElementById("booktitle").placeholder = "required";
+        document.getElementById("inproceedingsButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
+            document.getElementById("author").required="required";
+            document.getElementById("author").placeholder = "required";
+            document.getElementById("title").required="required";
+            document.getElementById("title").placeholder = "required";
+            document.getElementById("booktitle").required="required";
+            document.getElementById("booktitle").placeholder = "required";
         
-        document.getElementById("year").required="required";
-        document.getElementById("year").placeholder = "required";
-};
+            document.getElementById("year").required="required";
+            document.getElementById("year").placeholder = "required";
+        };
 
 
-}
-else if (document.attachEvent)
-{
-  alert("Your browser does not support addEventListener");
-}
+    }
+    else if (document.attachEvent)
+    {
+        alert("Your browser does not support addEventListener");
+    }
 
 </script>
-            
-            
-    </body>
+</body>
 </html>

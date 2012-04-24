@@ -34,10 +34,10 @@
                 padding:2px;
             }
 
-            tbody tr#list {
-                background-color:#F0F0F0 ;
-                border-bottom:1px solid #D8D8D8;
+            tbody tr#list:nth-child(even) {
+                background-color:#EBEBEB;
             }
+  
 
             tbody td {
                 color:#414141;
@@ -74,22 +74,22 @@
         </form>
         <table>
             <thead>
-                <tr id="list">
-                    <th>Viitetyyppi</th>
-                    <th>Tekijä</th>
-                    <th>Nimi</th>
-                    <th>Kirjan nimi</th>
-                    <th>Vuosi</th>
-                    <th>Sivut</th>
-                    <th>Julkaisija</th>
-                    <th>Tagit</th>
-                    <th>Journal</th>               
-                    <th></th>
+                <tr>
+                    <th width="8%">Viitetyyppi</th>
+                    <th width="13%">Tekijä</th>
+                    <th width="15%">Nimi</th>
+                    <th width="15%">Kirjan nimi</th>
+                    <th width="4%">Vuosi</th>
+                    <th width="5%">Sivut</th>
+                    <th width="9%">Julkaisija</th>
+                    <th width="10%">Tagit</th>
+                    <th width="9%">Journal</th>               
+                    <th width="12%"></th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="ref" items="${references}">
-                    <tr>
+                    <tr id="list">
                         <td id="${ref.id}.type" class="type" >${ref.type}</td>
                         <td id="${ref.id}.author" class="author" >${ref.author}</td>
                         <td id="${ref.id}.title" class="title" >${ref.title}</td>
