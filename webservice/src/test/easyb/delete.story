@@ -31,6 +31,7 @@ scenario 'deletion succesfull', {
     }
  
     then 'the reference will be deleted from system', {
+        driver.getPageSource().contains("Ohtu2012").shouldBe false
         driver.getPageSource().contains("<!-- This is the front page. -->").shouldBe true
     }
 }
@@ -39,12 +40,10 @@ scenario 'deletion succesfull', {
 scenario 'deletion not succesfull', {
     given 'deletion link selected', {
         driver = new HtmlUnitDriver();
-        driver.get("http://localhost:8088");
+        driver.get("http://localhost:8088/delete/1");
     }
 
     when 'reference does NOT exists', {
-        element = driver.findElement(By.linkText("Poista"));
-        element.click();
     }
  
     then 'the reference will NOT be deleted from system', {
