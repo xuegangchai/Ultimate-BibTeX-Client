@@ -38,7 +38,7 @@ scenario 'deletion succesfull', {
 
 
 scenario 'deletion not succesfull', {
-    given 'modification form selected', {
+    given 'deletion link selected', {
         driver = new HtmlUnitDriver();
         driver.get("http://localhost:8088");
     }
