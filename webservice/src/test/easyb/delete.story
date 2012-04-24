@@ -26,7 +26,7 @@ scenario 'deletion succesfull', {
     }
 
     when 'reference does exists', {
-        element = driver.findElement(By.linkText("Poistaa"));
+        element = driver.findElement(By.linkText("Poista"));
         element.click();
     }
  
