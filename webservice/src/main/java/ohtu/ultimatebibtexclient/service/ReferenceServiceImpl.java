@@ -70,12 +70,6 @@ public class ReferenceServiceImpl implements ReferenceService {
     public void delete(Reference ref) {
         referenceRepository.delete(ref);
     }
-    
-    @Override
-    @Transactional(propagation = Propagation.REQUIRED)
-    public void delete(int refID) {
-        referenceRepository.delete(refID);
-    }
 
     /**
      * 

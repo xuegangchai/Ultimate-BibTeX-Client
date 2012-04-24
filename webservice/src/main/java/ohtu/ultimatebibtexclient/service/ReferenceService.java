@@ -57,10 +57,4 @@ public interface ReferenceService {
      */
     Collection<Reference> findByKeywords(Collection<String> keywords);
 
-
-     /**
-     * Delete a reference.
-     * @param refID - the reference to delete
-     */
-    public void delete(int refID);
 }

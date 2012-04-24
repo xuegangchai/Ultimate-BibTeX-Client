@@ -118,7 +118,7 @@ public class Controller
         model.addAttribute("reference", ref);
         return "modify";
     }
-    
+
 
     /**
      *
@@ -163,9 +163,14 @@ public class Controller
      * @return to front page
      */
     @RequestMapping("delete/{refID}")
-    public String deleteReference(@PathVariable int refID)
+    public String deleteReference(Model model, @PathVariable int refID, @Valid @ModelAttribute("reference") Reference ref, BindingResult res)
     {
-        referenceService.delete(refID);
+        if (null == referenceService.fetchByID(refID))
+        {
+            throw new ResourceNotFoundException();
+        }
+        ref.setId(refID);
+        referenceService.delete(ref);
         return "list";
     }
 
