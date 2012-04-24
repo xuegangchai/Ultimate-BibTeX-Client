@@ -104,7 +104,7 @@
                                 Muokkaa
                             </a>/
                             <a href="${pageContext.request.contextPath}/delete/${ref.id}" id="${ref.id}.delete">
-                                Poistaa
+                                Poista
                             </a>
                         </td>
                     </tr>
