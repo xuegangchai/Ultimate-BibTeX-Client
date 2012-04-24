@@ -32,7 +32,6 @@ scenario 'deletion succesfull', {
  
     then 'the reference will be deleted from system', {
         driver.getPageSource().contains("<!-- This is the front page. -->").shouldBe true
-        driver.getPageSource().contains("Ohtu2013").shouldBe true
     }
 }
 
