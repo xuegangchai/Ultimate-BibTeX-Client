@@ -75,16 +75,16 @@
         <table>
             <thead>
                 <tr>
-                    <th width="8%">Viitetyyppi</th>
-                    <th width="13%">Tekijä</th>
-                    <th width="15%">Nimi</th>
-                    <th width="15%">Kirjan nimi</th>
-                    <th width="4%">Vuosi</th>
-                    <th width="5%">Sivut</th>
-                    <th width="9%">Julkaisija</th>
-                    <th width="10%">Tagit</th>
-                    <th width="9%">Journal</th>               
-                    <th width="12%"></th>
+                    <th>Viitetyyppi</th>
+                    <th>Tekijä</th>
+                    <th>Nimi</th>
+                    <th>Kirjan nimi</th>
+                    <th>Vuosi</th>
+                    <th>Sivut</th>
+                    <th>Julkaisija</th>
+                    <th>Tagit</th>
+                    <th>Journal</th>               
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -100,12 +100,7 @@
                         <td id="${ref.id}.tags" class="tags" >${ref.tags}</td>
                         <td id="${ref.id}.journal" class="journal" >${ref.journal}</td>
                         <td class="modify">
-                            <a href="${pageContext.request.contextPath}/reference/${ref.id}" id="${ref.id}.modify">
-                                Muokkaa
-                            </a>/
-                            <a href="${pageContext.request.contextPath}/delete/${ref.id}" id="${ref.id}.delete">
-                                Poista
-                            </a>
+                            <a href="${pageContext.request.contextPath}/reference/${ref.id}" id="${ref.id}.modify">Muokkaa</a> / <a href="${pageContext.request.contextPath}/delete/${ref.id}" id="${ref.id}.delete">Poista</a>
                         </td>
                     </tr>
                 </c:forEach>
