@@ -14,8 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
+import javax.validation.constraints.*;
 
 
 @Entity
@@ -24,6 +23,15 @@ public class Reference implements Serializable
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
+    /*
+     * Viiteavaimen validointi:
+     * NotNull() - Pakollinen kenttä
+     * Pituus 3-15
+     * Sallitaan ainostaan suomalaiset aakkoskirjaimet sekä numerot
+     */
+    @NotNull()
+    @Size(min=3, max=15)
+    @Pattern(regexp="^[a-zA-Z0-9åäöÅÄÖ]+$", message="NO special characters allowed, including spaces.")
     private String refkey;			// Shorthand for accessing this reference from LaTeX.
     private String type;              //The type of the recerence (article, book, inproceedings)
     /*
