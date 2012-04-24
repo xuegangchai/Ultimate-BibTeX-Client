@@ -74,7 +74,7 @@ scenario "creation not succesfull with invalid bibtex referencekey", {
         element = driver.findElement(By.name("title"));
         element.sendKeys("Ohtu2012");
         element = driver.findElement(By.name("month"));
-        element.sendKeys("clearly this is not a month");
+        element.sendKeys("12");
         element = driver.findElement(By.id("submit"));
         element.submit();
     }
