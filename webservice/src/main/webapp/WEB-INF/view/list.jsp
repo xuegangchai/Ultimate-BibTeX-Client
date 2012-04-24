@@ -77,7 +77,7 @@
                 <tr id="list">
                     <th>Viitetyyppi</th>
                     <th>Tekijä</th>
-                    <th>Artikkelin nimi</th>
+                    <th>Nimi</th>
                     <th>Kirjan nimi</th>
                     <th>Vuosi</th>
                     <th>Sivut</th>

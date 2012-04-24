@@ -92,7 +92,7 @@
                         <td> - Toimittajien nimet</td>
                     </tr>
                     <tr>
-                        <th>Artikkelin nimi</th>
+                        <th>Nimi</th>
                         <td><form:input id="title" path="title" />
                             <form:errors path="title" /></td>
                         <td>- Siteerattavan työn nimi</td>
