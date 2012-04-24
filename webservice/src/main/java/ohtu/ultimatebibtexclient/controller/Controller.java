@@ -33,9 +33,10 @@ public class Controller
 {
     @Autowired
     private ReferenceService referenceService;
-    
+
+
     /**
-     * 
+     *
      * @param model
      * @return reference to list.jps -page
      */
@@ -47,8 +48,9 @@ public class Controller
         return "list";
     }
 
+
     /**
-     * 
+     *
      * @param model
      * @return reference to modify.jsp -page
      */
@@ -62,15 +64,16 @@ public class Controller
         return "modify";
     }
 
+
     /**
-     * 
+     *
      * @param model
      * @param ref
      * @param res
      * @return a reference to front page or - in case of an error - back to modify.jsp-page
      */
     @RequestMapping(value = "reference", method = RequestMethod.POST)
-    public String createReference(Model model, @Valid @ModelAttribute("reference")Reference ref, BindingResult res)
+    public String createReference(Model model, @Valid @ModelAttribute("reference") Reference ref, BindingResult res)
     {
         String retval = "redirect:/";
         if (res.hasErrors())
@@ -92,8 +95,9 @@ public class Controller
         return retval;
     }
 
+
     /**
-     * 
+     *
      * @param model
      * @param refID
      * @return reference to modify.jsp-page
@@ -114,9 +118,10 @@ public class Controller
         model.addAttribute("reference", ref);
         return "modify";
     }
+    
 
     /**
-     * 
+     *
      * @param model
      * @param refID
      * @param ref
@@ -127,7 +132,7 @@ public class Controller
     public String modifyReference(Model model, @PathVariable int refID, @Valid @ModelAttribute("reference") Reference ref, BindingResult res)
     {
         String retval = "redirect:/";
-        
+
         if (null == referenceService.fetchByID(refID))
         {
             throw new ResourceNotFoundException();
@@ -150,9 +155,23 @@ public class Controller
 
         return retval;
     }
-    
+
+
     /**
-     * 
+     *
+     * @param refID
+     * @return to front page
+     */
+    @RequestMapping("delete/{refID}")
+    public String deleteReference(@PathVariable int refID)
+    {
+        referenceService.delete(refID);
+        return "list";
+    }
+
+
+    /**
+     *
      * @param model
      * @param keywords
      * @return a reference to list.jsp-page
@@ -168,10 +187,11 @@ public class Controller
         return "list";
     }
 
+
     /**
-     * 
+     *
      * @param response
-     * @throws IOException 
+     * @throws IOException
      */
     @RequestMapping(value = "bibtex", method = RequestMethod.GET)
     public void fetchReferencesAsBibtex(HttpServletResponse response) throws IOException
@@ -183,15 +203,19 @@ public class Controller
         response.setHeader("Content-Type", "text/x-bibtex");
         writer.write(refs, outputStream);
     }
-    
+
+
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     @RequestMapping(value = "read-bibtex", method = RequestMethod.OPTIONS)
     public ResponseEntity addBibtexOptions()
     {
-        MediaType[] mediaTypes = {new MediaType("text", "x-bibtex")};
+        MediaType[] mediaTypes =
+        {
+            new MediaType("text", "x-bibtex")
+        };
         HttpHeaders headers = new HttpHeaders();
         headers.setAllow(EnumSet.of(HttpMethod.POST));
         headers.set("Access-Control-Allow-Origin", "http://dl.acm.org");
@@ -201,11 +225,12 @@ public class Controller
         return new ResponseEntity(headers, HttpStatus.OK);
     }
 
+
     /**
-     * 
+     *
      * @param content
      * @return
-     * @throws Throwable 
+     * @throws Throwable
      */
     @RequestMapping(value = "read-bibtex", method = RequestMethod.POST)
     @ResponseBody
