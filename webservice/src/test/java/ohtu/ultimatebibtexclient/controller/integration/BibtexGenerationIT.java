@@ -6,9 +6,9 @@ package ohtu.ultimatebibtexclient.controller.integration;
 
 
 import com.gargoylesoftware.htmlunit.javascript.host.Element;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import ohtu.ultimatebibtexclient.util.HtmlUnitDriver;
+import org.apache.commons.io.IOUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -66,6 +66,10 @@ public class BibtexGenerationIT
         WebElement element = driver.findElement(By.linkText("Luo uusi viite"));
         element.click();
 
+        element = driver.findElement(By.id("inproceedingsButton"));
+        element.click();
+        element = driver.findElement(By.name("refkey"));
+        element.sendKeys("Public2012");
         element = driver.findElement(By.name("author"));
         element.sendKeys("John Q. Public");
         element = driver.findElement(By.name("title"));
@@ -78,7 +82,7 @@ public class BibtexGenerationIT
         element.sendKeys("2012");
         element = driver.findElement(By.id("submit"));
         element.submit();
-
+        
         // When the download link is clicked
         driver.get("http://localhost:8088");
         element = driver.findElement(By.linkText("Lataa viitteet BibTeX-muodossa"));
@@ -95,7 +99,7 @@ public class BibtexGenerationIT
     public void testUploading() throws UnsupportedEncodingException, IOException
     {
         // Given we have a reference to upload
-        String input = "@proceedings{Doudi:2010:1877808,\n"
+        String input = "@inproceedings{Doudi:2010:1877808,\n"
                        + "title = {3DOR '10: Proceedings of the ACM workshop on 3D object retrieval},\n"
                        + "year = {2010},\n"
                        + "isbn = {978-1-4503-0160-2},\n"
@@ -112,12 +116,21 @@ public class BibtexGenerationIT
         post.setHeader("Content-Type", "text/x-bibtex");
         post.setEntity(ent);
         HttpResponse response = client.execute(post);
-        
         // Then the reference will be added.
+
+        /*
+        StringWriter writer = new StringWriter();
+        IOUtils.copy(response.getEntity().getContent(), writer, "UTF-8");
+        String theString = writer.toString();
+        */
+        
         assertEquals(200, response.getStatusLine().getStatusCode());
         
         HtmlUnitDriver driver = new HtmlUnitDriver();
         driver.get("http://localhost:8088");
-        assertTrue(driver.getPageSource().contains("3DOR"));
+        
+        String pageSource = driver.getPageSource();
+        assertTrue(pageSource.contains("3DOR"));
+        assertTrue(pageSource.contains("2010"));
     }
 }
