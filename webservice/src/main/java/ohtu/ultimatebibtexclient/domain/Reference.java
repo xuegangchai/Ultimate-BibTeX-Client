@@ -31,7 +31,7 @@ public class Reference implements Serializable
      */
      
     @Size(min=3, max=15)
-    @Pattern(regexp="^[a-zA-Z0-9åäöÅÄÖ]+$", message="NO special characters allowed, including spaces.")
+    @Pattern(regexp="^[a-zA-Z0-9åäöÅÄÖ+:]+$", message="NO special characters except +, : allowed, including spaces.")
     private String refkey;			// Shorthand for accessing this reference from LaTeX.
     private String type;              //The type of the recerence (article, book, inproceedings)
     /*
