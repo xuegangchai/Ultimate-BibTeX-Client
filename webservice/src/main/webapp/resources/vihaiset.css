@@ -29,9 +29,8 @@ h1 a {
                 padding:2px;
             }
 
-            tbody tr#list {
-                background-color:#F0F0F0 ;
-                border-bottom:1px solid #D8D8D8;
+            tbody tr#list:nth-child(even) {
+                background-color:#EBEBEB;
             }
 
             tbody td {
