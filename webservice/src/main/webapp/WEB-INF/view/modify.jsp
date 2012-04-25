@@ -81,13 +81,13 @@
                     </tr>
                     <tr>
                         <th>Tekijät</th>
-                        <td><form:input id="author" path="author" />
+                        <td><form:input id="author" oninput="OnInputAuthor (event)"  path="author" />
                             <form:errors path="author" /></td>
                         <td>- Tekijöiden nimet </td>
                     </tr>
                     <tr>
                         <th>Toimittajat</th>
-                        <td><form:input id="editor" path="editor"/>
+                        <td><form:input id="editor" oninput="OnInputEditor (event)" path="editor"/>
                             <form:errors path="editor" /></td>
                         <td> - Toimittajien nimet</td>
                     </tr>
@@ -200,12 +200,22 @@
         
             document.getElementById("year").required="required";
             document.getElementById("year").placeholder = "required";
+            
+            
+            
+            
+            
+            
+       
+            
         };
 
 
         document.getElementById("bookButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
             document.getElementById("author").required="required";
             document.getElementById("author").placeholder = "required";
+            document.getElementById("editor").required="required";
+            document.getElementById("editor").placeholder = "required";
             document.getElementById("title").required="required";
             document.getElementById("title").placeholder = "required";
             document.getElementById("publisher").required="required";
@@ -213,6 +223,12 @@
         
             document.getElementById("year").required="required";
             document.getElementById("year").placeholder = "required";
+            
+          
+            
+            
+            
+            
         };
 
         document.getElementById("inproceedingsButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
@@ -226,6 +242,51 @@
             document.getElementById("year").required="required";
             document.getElementById("year").placeholder = "required";
         };
+        
+        //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia
+        
+         function OnInputAuthor (event) {
+           if (document.getElementById("bookButton").checked) {
+
+            if(event.target.value == "") {
+                    
+            
+             document.getElementById("editor").placeholder = "required";
+             
+             document.getElementById("editor").required= "required";
+            }
+            else {
+             document.getElementById("editor").placeholder = "";
+             
+             document.getElementById("editor").required= "";
+            }
+           }
+
+
+         }
+            
+         //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia    
+          function OnInputEditor (event) {
+           if (document.getElementById("bookButton").checked) {
+
+            if(event.target.value == "") {
+                    
+            
+             document.getElementById("author").placeholder = "required";
+             
+             document.getElementById("author").required= "required";
+            }
+            else {
+             document.getElementById("author").placeholder = "";
+             
+             document.getElementById("author").required= "";
+            }
+
+           }
+
+         }
+           
+        
 
 
     }
