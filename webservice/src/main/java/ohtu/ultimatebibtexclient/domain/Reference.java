@@ -29,7 +29,7 @@ public class Reference implements Serializable
      * Pituus 3-15
      * Sallitaan ainostaan suomalaiset aakkoskirjaimet sekä numerot
      */
-    @NotNull()
+     
     @Size(min=3, max=15)
     @Pattern(regexp="^[a-zA-Z0-9åäöÅÄÖ]+$", message="NO special characters allowed, including spaces.")
     private String refkey;			// Shorthand for accessing this reference from LaTeX.
