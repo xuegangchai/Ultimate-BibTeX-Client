@@ -10,7 +10,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 import ohtu.ultimatebibtexclient.domain.Reference;
-import org.jbibtex.*;
+import org.jbibtex.BibTeXDatabase;
+import org.jbibtex.BibTeXEntry;
+import org.jbibtex.BibTeXParser;
+import org.jbibtex.Key;
 
 
 /**
@@ -41,9 +44,12 @@ public class BibtexReaderImpl implements BibtexReader
         {
             BibTeXEntry entry = mapEntry.getValue();
             BibtexEntryMapping spec = BibtexEntryMapping.mappingForEntry(entry);
-            Reference ref = spec.createReference(entry);
-            if (null != ref)
-                retval.add(ref);
+            if (null != spec)
+            {
+                Reference ref = spec.createReference(entry);
+                if (null != ref)
+                    retval.add(ref);
+            }
         }
 
         return retval;
