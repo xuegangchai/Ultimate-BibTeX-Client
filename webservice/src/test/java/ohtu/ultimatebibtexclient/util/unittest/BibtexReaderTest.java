@@ -73,8 +73,9 @@ public class BibtexReaderTest
         assertEquals(1, refs.length);
         
         Reference ref = refs[0];
+        assertEquals("article", ref.getType());
         assertEquals("2012:2159531", ref.getRefkey());
-        // journal
+        assertEquals("ACM Trans. Comput. Logic", ref.getJournal());
         assertEquals(new Integer(2012), ref.getYear());
         // issn
         assertEquals("13", ref.getVolume());
@@ -89,15 +90,14 @@ public class BibtexReaderTest
     @Test
     public void read2() throws Throwable
     {
-        String input = "@proceedings{Doudi:2010:1877808,\n"
-                       + "title = {3DOR '10: Proceedings of the ACM workshop on 3D object retrieval},\n"
-                       + "year = {2010},\n"
-                       + "isbn = {978-1-4503-0160-2},\n"
-                       + "location = {Firenze, Italy},\n"
-                       + "note = {433107},\n"
-                       + "publisher = {ACM},\n"
-                       + "address = {New York, NY, USA},\n"
-                       + "} ";
+        String input = "@Book{abramowitz+stegun,\n"
+                       + "author    = \"Milton Abramowitz and Irene A. Stegun\",\n"
+                       + "title     = \"Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables\",\n"
+                       + "publisher = \"Dover\",\n"
+                       + "year      = \"1964\",\n"
+                       + "address   = \"New York\",\n"
+                       + "edition   = \"ninth Dover printing, tenth GPO printing\"\n"
+                       + "}";
 
         BibtexReader reader = new BibtexReaderImpl();
         StringReader stringReader = new StringReader(input);
@@ -108,13 +108,47 @@ public class BibtexReaderTest
         assertEquals(1, refs.length);
 
         Reference ref = refs[0];
-        assertEquals("Doudi:2010:1877808", ref.getRefkey());
-        assertEquals("3DOR '10: Proceedings of the ACM workshop on 3D object retrieval", ref.getTitle());
-        assertEquals(new Integer(2010), ref.getYear());
-        // isbn
-        // location
-        assertEquals("433107", ref.getNote());
-        assertEquals("ACM", ref.getPublisher());
-        assertEquals("New York, NY, USA", ref.getAddress());
+        assertEquals("book", ref.getType());
+        assertEquals("abramowitz+stegun", ref.getRefkey());
+        assertEquals("Milton Abramowitz and Irene A. Stegun", ref.getAuthor());
+        assertEquals("Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables", ref.getTitle());
+        assertEquals("Dover", ref.getPublisher());
+        assertEquals(new Integer(1964), ref.getYear());
+        assertEquals("New York", ref.getAddress());
+        assertEquals("ninth Dover printing, tenth GPO printing", ref.getEdition());
+    }
+
+
+    @Test
+    public void read3() throws Throwable
+    {
+        String input = "@article{Gettys90,\n"
+                       + "author = {Jim Gettys and Phil Karlton and Scott McGregor},\n"
+                       + "title = {The X Window System, Version 11},\n"
+                       + "journal = {Software Practice and Experience},\n"
+                       + "volume = {20},\n"
+                       + "number = {S2},\n"
+                       + "year = {1990},\n"
+                       + "abstract = {A technical overview of the X11 functionality.  This is an update of the X10 TOG paper by Scheifler & Gettys.}\n"
+                       + "}";
+
+        BibtexReader reader = new BibtexReaderImpl();
+        StringReader stringReader = new StringReader(input);
+        Collection<Reference> refCollection = reader.read(stringReader);
+
+        Reference[] refs = new Reference[1];
+        refs = refCollection.toArray(refs);
+        assertEquals(1, refs.length);
+
+        Reference ref = refs[0];
+        assertEquals("article", ref.getType());
+        assertEquals("Gettys90", ref.getRefkey());
+        assertEquals("Jim Gettys and Phil Karlton and Scott McGregor", ref.getAuthor());
+        assertEquals("The X Window System, Version 11", ref.getTitle());
+        assertEquals("Software Practice and Experience", ref.getJournal());
+        assertEquals("20", ref.getVolume());
+        assertEquals("S2", ref.getNumber());
+        assertEquals(new Integer(1990), ref.getYear());
+        // abstract
     }
 }
