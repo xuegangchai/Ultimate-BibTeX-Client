@@ -68,7 +68,7 @@ scenario "creation not succesfull with invalid bibtex referencekey", {
 
     when 'a NOT valid information are given', {
         element = driver.findElement(By.name("refkey"));
-        element.sendKeys("%"#¤"#¤%"#%");
+        element.sendKeys("%\"#¤\"#¤%\"#%");
         element = driver.findElement(By.name("author"));
         element.sendKeys("Xuegang Chai");
         element = driver.findElement(By.name("title"));

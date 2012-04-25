@@ -15,8 +15,11 @@ import java.io.StringReader;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.EnumSet;
+import java.util.Set;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import ohtu.ultimatebibtexclient.domain.Reference;
 import ohtu.ultimatebibtexclient.service.ReferenceService;
@@ -239,15 +242,37 @@ public class Controller
      */
     @RequestMapping(value = "read-bibtex", method = RequestMethod.POST)
     @ResponseBody
-    public String addBibtex(@RequestBody String content) throws Throwable
+    public ResponseEntity addBibtex(@RequestBody String content) throws Throwable
     {
         Reader reader = new StringReader(content);
         BibtexReader bibReader = new BibtexReaderImpl();
         Collection<Reference> refs = bibReader.read(reader);
         for (Reference ref : refs)
         {
-            referenceService.modify(ref);
+            try
+            {
+                referenceService.modify(ref);
+            }
+            catch (ConstraintViolationException exc)
+            {
+                HttpHeaders headers = new HttpHeaders();
+                headers.setContentType(new MediaType("text", "plain"));
+                
+                StringBuilder responseVal = new StringBuilder();
+                responseVal.append("Constraint violations:");
+                
+                Set<ConstraintViolation<?>> constraintViolations = exc.getConstraintViolations();
+                for (ConstraintViolation<?> violation : constraintViolations)
+                {
+                    responseVal.append(String.format("\n%s: %s. Got '%s'.",
+                                                     violation.getPropertyPath().toString(),
+                                                     violation.getMessage(),
+                                                     violation.getInvalidValue()));
+                }
+                
+                return new ResponseEntity(responseVal.toString(), headers, HttpStatus.BAD_REQUEST);
+            }
         }
-        return "";
+        return new ResponseEntity(new HttpHeaders(), HttpStatus.OK);
     }
 }

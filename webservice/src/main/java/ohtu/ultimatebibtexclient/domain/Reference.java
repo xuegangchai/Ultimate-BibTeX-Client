@@ -24,16 +24,18 @@ public class Reference implements Serializable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     /*
+     * Shorthand for accessing this reference from LaTeX.
      * Viiteavaimen validointi:
      * NotNull() - Pakollinen kenttä
-     * Pituus 3-15
      * Sallitaan ainostaan suomalaiset aakkoskirjaimet sekä numerot
      */
-     
-    //@Size(min=3, max=15)
-    @Pattern(regexp="^[a-zA-Z0-9åäöÅÄÖ]+$", message="NO special characters allowed, including spaces.")
-    private String refkey = null;			// Shorthand for accessing this reference from LaTeX.
-    private String type;              //The type of the recerence (article, book, inproceedings)
+    @Pattern(regexp="^[a-zA-Z0-9åäöÅÄÖ+:]+$", message="NO special characters except +, : allowed, including spaces.")
+    private String refkey;			 
+
+    /**
+     * The type of the recerence (article, book, inproceedings)
+     */
+    private String type;             
     /*
      * Inproceedings fields from Wikipedia, http://en.wikipedia.org/wiki/BibTeX
      *
@@ -105,13 +107,13 @@ public class Reference implements Serializable
      * The year of publication (or, if unpublished, the year of creation)
      */
     private Integer year; 
-    @Min(1)
-    @Max(12)
-    
+
     /**
      * (scope: article, book, inproceedings)
      * The month of publication (or, if unpublished, the month of creation)
      */
+    @Min(1)
+    @Max(12)
     private Integer month;
     
     /**
