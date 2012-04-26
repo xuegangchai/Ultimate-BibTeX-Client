@@ -28,7 +28,7 @@ public class Reference implements Serializable
      * NotNull() - Pakollinen kenttä
      * Sallitaan ainostaan suomalaiset aakkoskirjaimet sekä numerot
      */
-    @Pattern(regexp="^[a-zA-Z0-9åäöÅÄÖ+:]+$", message="NO special characters except +, : allowed, including spaces.")
+    @Pattern(regexp="^[a-zA-Z0-9åäöÅÄÖ+.:]+$", message="NO special characters except +, : allowed, including spaces.")
     private String refkey;			// Shorthand for accessing this reference from LaTeX.
     private String type;              //The type of the recerence (article, book, inproceedings)
     /*
