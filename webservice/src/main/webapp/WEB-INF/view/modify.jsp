@@ -14,7 +14,7 @@
         <title>${title}</title>
 
         <link href="resources/vihaiset.css" rel="stylesheet" type="text/css">
-       
+        <script type="text/javascript" src="resources/required.js"></script>
 
     </head>
     <body>
@@ -143,116 +143,5 @@
     </table>
     <input type="submit" id="submit" value="${button}">
 </form:form>
-
-    <script>
-    if (document.addEventListener)
-    {
-
-        document.getElementById("articleButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-            document.getElementById("author").required="required";
-            document.getElementById("author").placeholder = "required";
-            document.getElementById("title").required="required";
-            document.getElementById("title").placeholder = "required";
-            document.getElementById("journal").required="required";
-            document.getElementById("journal").placeholder = "required";
-        
-            document.getElementById("year").required="required";
-            document.getElementById("year").placeholder = "required";
-            
-            
-            
-            
-            
-            
-       
-            
-        };
-
-
-        document.getElementById("bookButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-            document.getElementById("author").required="required";
-            document.getElementById("author").placeholder = "required";
-            document.getElementById("editor").required="required";
-            document.getElementById("editor").placeholder = "required";
-            document.getElementById("title").required="required";
-            document.getElementById("title").placeholder = "required";
-            document.getElementById("publisher").required="required";
-            document.getElementById("publisher").placeholder = "required";
-        
-            document.getElementById("year").required="required";
-            document.getElementById("year").placeholder = "required";
-            
-          
-            
-            
-            
-            
-        };
-
-        document.getElementById("inproceedingsButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-            document.getElementById("author").required="required";
-            document.getElementById("author").placeholder = "required";
-            document.getElementById("title").required="required";
-            document.getElementById("title").placeholder = "required";
-            document.getElementById("booktitle").required="required";
-            document.getElementById("booktitle").placeholder = "required";
-        
-            document.getElementById("year").required="required";
-            document.getElementById("year").placeholder = "required";
-        };
-        
-        //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia
-        
-         function OnInputAuthor (event) {
-           if (document.getElementById("bookButton").checked) {
-
-            if(event.target.value == "") {
-                    
-            
-             document.getElementById("editor").placeholder = "required";
-             
-             document.getElementById("editor").required= "required";
-            }
-            else {
-             document.getElementById("editor").placeholder = "";
-             
-             document.getElementById("editor").required= "";
-            }
-           }
-
-
-         }
-            
-         //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia    
-          function OnInputEditor (event) {
-           if (document.getElementById("bookButton").checked) {
-
-            if(event.target.value == "") {
-                    
-            
-             document.getElementById("author").placeholder = "required";
-             
-             document.getElementById("author").required= "required";
-            }
-            else {
-             document.getElementById("author").placeholder = "";
-             
-             document.getElementById("author").required= "";
-            }
-
-           }
-
-         }
-           
-        
-
-
-    }
-    else if (document.attachEvent)
-    {
-        alert("Your browser does not support addEventListener");
-    }
-
-</script>
 </body>
 </html>
