@@ -14,7 +14,112 @@
         <title>${title}</title>
 
         <link href="resources/vihaiset.css" rel="stylesheet" type="text/css">
-        <script type="text/javascript" src="resources/required.js"></script>
+        <style>
+            h1 a {
+                color:#336699;
+                text-decoration:none;
+                font-weight:normal;
+                padding-left:15px;
+            }
+            table {
+                font-size:0.9em;
+                font-family:Arial, Helvetica, verdana sans-serif;
+                width:100%;
+            }
+
+            thead th {
+                border-right:1px solid #fff;
+                color:#fff;
+                text-align:center;
+                text-transform:uppercase;
+                height:25px;
+                background-color:#336699;
+                font-weight:400;
+                padding:2px;
+            }
+
+            tbody tr#list:nth-child(even) {
+                background-color:#EBEBEB;
+            }
+
+            tbody td {
+                color:#414141;
+                text-align:left;
+                padding:5px;
+            }
+            tbody th
+            {
+                text-align: right;
+            }
+
+            input[type=text]
+            {
+                width: 20em;
+            }
+
+        </style>
+        <script type="text/javascript">
+            window.addEventListener("load", sivuLadattu);
+
+function sivuLadattu() {
+        document.getElementById("articleButton").onclick = function () {
+            var all = document.getElementsByTagName("input");
+            for (var i = 0; i < all.length; i++) {
+                all[i].required = false;
+                all[i].placeholder = ""
+            }
+            document.getElementById("author").required = "required";
+            document.getElementById("author").placeholder = "required";
+            document.getElementById("title").required = "required";
+            document.getElementById("title").placeholder = "required";
+            document.getElementById("journal").required = "required";
+            document.getElementById("journal").placeholder = "required";
+
+            document.getElementById("year").required = "required";
+            document.getElementById("year").placeholder = "required";
+
+        };
+
+
+        document.getElementById("bookButton").onclick = function () {
+            var all = document.getElementsByTagName("input");
+            for (var i = 0; i < all.length; i++) {
+                all[i].required = false;
+                all[i].placeholder = ""
+            }
+            document.getElementById("author").required = "required";
+            document.getElementById("author").placeholder = "required";
+            document.getElementById("editor").required = "required";
+            document.getElementById("editor").placeholder = "required";
+            document.getElementById("title").required = "required";
+            document.getElementById("title").placeholder = "required";
+            document.getElementById("publisher").required = "required";
+            document.getElementById("publisher").placeholder = "required";
+
+            document.getElementById("year").required = "required";
+            document.getElementById("year").placeholder = "required";
+
+        };
+
+        document.getElementById("inproceedingsButton").onclick = function () {
+            var all = document.getElementsByTagName("input");
+            for (var i = 0; i < all.length; i++) {
+                all[i].required = false;
+                all[i].placeholder = ""
+            }
+            document.getElementById("author").required = "required";
+            document.getElementById("author").placeholder = "required";
+            document.getElementById("title").required = "required";
+            document.getElementById("title").placeholder = "required";
+            document.getElementById("booktitle").required = "required";
+            document.getElementById("booktitle").placeholder = "required";
+
+            document.getElementById("year").required = "required";
+            document.getElementById("year").placeholder = "required";
+        };
+
+}
+        </script>
 
     </head>
     <body>
