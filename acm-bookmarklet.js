@@ -24,9 +24,12 @@ javascript:(function()
 
         if(id)
         {
+            var parts = id.split(".");
+            id = parts[parts.length - 1];
+
             var el = document.getElementById(id);
             var content = el.innerHTML;
-            
+
             var xhr = new XMLHttpRequest();
             xhr.open("POST", serviceUrl, true);
             xhr.setRequestHeader("Content-Type", "text/x-bibtex");
