@@ -151,4 +151,54 @@ public class BibtexReaderTest
         assertEquals(new Integer(1990), ref.getYear());
         // abstract
     }
+    
+    
+    @Test
+    public void read4() throws Throwable
+    {
+        String input = "@inproceedings{Kurhila:2011:MST:2047594.2047596,\n"
+                       + "author = {Kurhila, Jaakko and Vihavainen, Arto},\n"
+                       + "title = {Management, structures and tools to scale up personal advising in large programming courses},\n"
+                       + "booktitle = {Proceedings of the 2011 conference on Information technology education},\n"
+                       + "series = {SIGITE '11},\n"
+                       + "year = {2011},\n"
+                       + "isbn = {978-1-4503-1017-8},\n"
+                       + "location = {West Point, New York, USA},\n"
+                       + "pages = {3--8},\n"
+                       + "numpages = {6},\n"
+                       + "url = {http://doi.acm.org/10.1145/2047594.2047596},\n"
+                       + "doi = {10.1145/2047594.2047596},\n"
+                       + "acmid = {2047596},\n"
+                       + "publisher = {ACM},\n"
+                       + "address = {New York, NY, USA},\n"
+                       + "keywords = {continuous feedback, course cost, individual education, instructional design, programming education, resource allocation},\n"
+                       + "}";
+
+        BibtexReader reader = new BibtexReaderImpl();
+        StringReader stringReader = new StringReader(input);
+        Collection<Reference> refCollection = reader.read(stringReader);
+
+        Reference[] refs = new Reference[1];
+        refs = refCollection.toArray(refs);
+        assertEquals(1, refs.length);
+
+        Reference ref = refs[0];
+        assertEquals("inproceedings", ref.getType());
+        assertEquals("Kurhila:2011:MST:2047594.2047596", ref.getRefkey());
+        assertEquals("Kurhila, Jaakko and Vihavainen, Arto", ref.getAuthor());
+        assertEquals("Management, structures and tools to scale up personal advising in large programming courses", ref.getTitle());
+        assertEquals("Proceedings of the 2011 conference on Information technology education", ref.getBooktitle());
+        assertEquals("SIGITE '11", ref.getSeries());
+        assertEquals(new Integer(2011), ref.getYear());
+        // isbn
+        // location
+        assertEquals("3--8", ref.getPages());
+        // numpages
+        // url
+        // doi
+        // acmid
+        assertEquals("ACM", ref.getPublisher());
+        assertEquals("New York, NY, USA", ref.getAddress());
+        // keywords
+    }
 }
