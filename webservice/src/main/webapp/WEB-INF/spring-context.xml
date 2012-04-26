@@ -33,7 +33,7 @@
     
     <!-- ulkoinen css -->
     <mvc:resources mapping="/resources/**" location="/resources/"/>
-       
+         
     <!-- Mahdollistetaan konfigurointi annotaatioilla -->
     <context:annotation-config />
     

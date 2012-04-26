@@ -31,28 +31,30 @@ scenario "when clicked \"luo uusi viite\", an empty form for creating a new refe
         element.click();
     }
     then 'an empty form for creating a new reference is opened', {
-        driver.getPageSource().contains("Artikkelin nimi").shouldBe true;
-        WebElement element = driver.findElement(By.name("title"));
+        driver.getPageSource().contains("Julkaisijan osoite").shouldBe true;
+        WebElement element = driver.findElement(By.id("title"));
         element.getAttribute("value").shouldBe "";
     }
 }
 
-scenario "when a new reference is created and \"lue uusi viite\" is clicked, the opening new form is empty", {
-    given 'a new reference is being created properly', {
+scenario "when a new reference is already created and \"lue uusi viite\" is clicked again, the opening new form is empty", {
+    given 'a new article reference is being created properly', {
         driver = new HtmlUnitDriver();
         driver.get("http://localhost:8088");
         element = driver.findElement(By.linkText("Luo uusi viite"));
         element.click();
+        element = driver.findElement(By.id("articleButton"));
+        element.click();
+        element = driver.findElement(By.name("refkey"));
+        element.sendKeys("viite");
         element = driver.findElement(By.name("author"));
         element.sendKeys("Xuegang Chai");
         element = driver.findElement(By.name("title"));
         element.sendKeys("Ohtu2012");
-        element = driver.findElement(By.name("booktitle"));
-        element.sendKeys("OhtuLabra");
-        element = driver.findElement(By.name("pages"));
-        element.sendKeys("31-33");
         element = driver.findElement(By.name("year"));
         element.sendKeys("2012");
+        element = driver.findElement(By.name("journal"));
+        element.sendKeys("National Geographic");
         element = driver.findElement(By.id("submit"));
         element.submit();
     }
@@ -61,8 +63,8 @@ scenario "when a new reference is created and \"lue uusi viite\" is clicked, the
         element.click();
     }
     then 'an empty form for creating a new reference is opened',{
-        driver.getPageSource().contains("Artikkelin nimi").shouldBe true;
-        WebElement element = driver.findElement(By.name("title"));
+        driver.getPageSource().contains("Julkaisijan osoite").shouldBe true;
+        WebElement element = driver.findElement(By.id("title"));
         element.getAttribute("value").shouldBe "";
     }
 }

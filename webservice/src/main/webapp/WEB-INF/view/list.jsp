@@ -57,7 +57,7 @@
                         <td id="${ref.id}.tags" class="tags" >${ref.tags}</td>
                         <td id="${ref.id}.journal" class="journal" >${ref.journal}</td>
                         <td class="modify">
-                            <a href="${pageContext.request.contextPath}/reference/${ref.id}" id="${ref.id}.modify">Muokkaa</a> / <a href="${pageContext.request.contextPath}/delete/${ref.id}" id="${ref.id}.delete">Poista</a>
+                            <a href="${pageContext.request.contextPath}/reference/${ref.id}" id="${ref.refkey}modify">Muokkaa ${ref.refkey}</a> / <a href="${pageContext.request.contextPath}/delete/${ref.id}" id="${ref.id}.delete">Poista</a>
                         </td>
                     </tr>
                 </c:forEach>

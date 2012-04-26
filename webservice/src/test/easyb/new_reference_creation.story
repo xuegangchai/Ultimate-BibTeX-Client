@@ -13,17 +13,19 @@ scenario "creation succesfull with proper informations", {
         element.click();
     }
 
-    when 'a valid information are given', {
+    when 'a valid article information are given', {
+        element = driver.findElement(By.id("articleButton"));
+        element.click();
+        element = driver.findElement(By.name("refkey"));
+        element.sendKeys("viite");
         element = driver.findElement(By.name("author"));
         element.sendKeys("Xuegang Chai");
         element = driver.findElement(By.name("title"));
         element.sendKeys("Ohtu2012");
-        element = driver.findElement(By.name("booktitle"));
-        element.sendKeys("OhtuLabra");
-        element = driver.findElement(By.name("pages"));
-        element.sendKeys("31-33");
         element = driver.findElement(By.name("year"));
         element.sendKeys("2012");
+        element = driver.findElement(By.name("journal"));
+        element.sendKeys("National Geographic");
         element = driver.findElement(By.id("submit"));
         element.submit();
     }
@@ -43,14 +45,23 @@ scenario "creation not succesfull with required informations missing", {
     }
 
     when 'a NOT valid information are given', {
+        element = driver.findElement(By.id("articleButton"));
+        element.click();
+        element = driver.findElement(By.name("refkey"));
+        element.sendKeys("viite");
         element = driver.findElement(By.name("author"));
         element.sendKeys("Xuegang Chai");
         element = driver.findElement(By.name("title"));
         element.sendKeys("Ohtu2012");
+        element = driver.findElement(By.name("year"));
+        element.sendKeys("2012");
         element = driver.findElement(By.name("month"));
         element.sendKeys("clearly this is not a month");
+        element = driver.findElement(By.name("journal"));
+        element.sendKeys("National Geographic");
         element = driver.findElement(By.id("submit"));
         element.submit();
+
     }
  
     then 'the reference should not be added in to system', {
