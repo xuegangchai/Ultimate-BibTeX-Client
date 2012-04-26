@@ -1,6 +1,6 @@
 javascript:(function()
 {
-    var serviceUrl = "http://localhost:8080/vihaiset/read-bibtex";
+    var serviceUrl = "http://warm-wind-9340.herokuapp.com/read-bibtex";
     var handleError = function(msg)
     {
         window.alert("I'm sorry but this didn't work out.\n" + msg);
