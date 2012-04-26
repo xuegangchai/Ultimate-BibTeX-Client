@@ -143,5 +143,43 @@
     </table>
     <input type="submit" id="submit" value="${button}">
 </form:form>
+    <script>
+        //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia
+        function OnInputAuthor(event) {
+            if (document.getElementById("bookButton").checked) {
+
+                if (event.target.value == "") {
+
+
+                    document.getElementById("editor").placeholder = "required";
+
+                    document.getElementById("editor").required = "required";
+                } else {
+                    document.getElementById("editor").placeholder = "";
+
+                    document.getElementById("editor").required = "";
+                }
+            }
+
+        };
+
+        //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia    
+        function OnInputEditor(event) {
+            if (document.getElementById("bookButton").checked) {
+
+                if (event.target.value == "") {
+
+
+                    document.getElementById("author").placeholder = "required";
+
+                    document.getElementById("author").required = "required";
+                } else {
+                    document.getElementById("author").placeholder = "";
+
+                    document.getElementById("author").required = "";
+                }
+            }
+        };
+    </script>
 </body>
 </html>
