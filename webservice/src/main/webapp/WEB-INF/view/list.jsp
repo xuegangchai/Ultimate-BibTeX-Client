@@ -10,7 +10,7 @@
     <head>
         <meta charset="UTF-8">
         <title>Viitteet</title>
-        <link href="resources/vihaiset.css" rel="stylesheet" type="text/css">
+        <link href="${pageContext.request.contextPath}/resources/vihaiset.css" rel="stylesheet" type="text/css">
 
     </head>
     <body>
