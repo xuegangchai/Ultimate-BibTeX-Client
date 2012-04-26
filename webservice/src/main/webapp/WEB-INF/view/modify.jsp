@@ -13,50 +13,8 @@
         <meta charset="UTF-8">
         <title>${title}</title>
 
-        <style>
-            h1 a {
-                color:#336699;
-                text-decoration:none;
-                font-weight:normal;
-                padding-left:15px;
-            }
-            table {
-                font-size:0.9em;
-                font-family:Arial, Helvetica, verdana sans-serif;
-                width:100%;
-            }
-
-            thead th {
-                border-right:1px solid #fff;
-                color:#fff;
-                text-align:center;
-                text-transform:uppercase;
-                height:25px;
-                background-color:#336699;
-                font-weight:400;
-                padding:2px;
-            }
-
-            tbody tr#list {
-                background-color:#F0F0F0 ;
-                border-bottom:1px solid #D8D8D8;
-            }
-
-            tbody td {
-                color:#414141;
-                text-align:left;
-                padding:5px;
-            }
-            tbody th
-            {
-                text-align: right;
-            }
-
-            input[type=text]
-            {
-                width: 20em;
-            }
-        </style>
+        <link href="resources/vihaiset.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="resources/required.js"></script>
 
     </head>
     <body>
@@ -78,7 +36,7 @@
                         <td><form:input id="refkey" path="refkey" />
                             <form:errors path="refkey" /></td>
                         <td> - LaTeXissa käytettävä viiteavain</td>
-                    </tr>
+                    </tr>           
                     <tr>
                         <th>Tekijät</th>
                         <td><form:input id="author" oninput="OnInputAuthor (event)"  path="author" />
@@ -185,116 +143,43 @@
     </table>
     <input type="submit" id="submit" value="${button}">
 </form:form>
-
-<script language="javascript">
-    if (document.addEventListener)
-    {
-
-        document.getElementById("articleButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-            document.getElementById("author").required="required";
-            document.getElementById("author").placeholder = "required";
-            document.getElementById("title").required="required";
-            document.getElementById("title").placeholder = "required";
-            document.getElementById("journal").required="required";
-            document.getElementById("journal").placeholder = "required";
-        
-            document.getElementById("year").required="required";
-            document.getElementById("year").placeholder = "required";
-            
-            
-            
-            
-            
-            
-       
-            
-        };
-
-
-        document.getElementById("bookButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-            document.getElementById("author").required="required";
-            document.getElementById("author").placeholder = "required";
-            document.getElementById("editor").required="required";
-            document.getElementById("editor").placeholder = "required";
-            document.getElementById("title").required="required";
-            document.getElementById("title").placeholder = "required";
-            document.getElementById("publisher").required="required";
-            document.getElementById("publisher").placeholder = "required";
-        
-            document.getElementById("year").required="required";
-            document.getElementById("year").placeholder = "required";
-            
-          
-            
-            
-            
-            
-        };
-
-        document.getElementById("inproceedingsButton").onclick=function(){var all=document.getElementsByTagName("input");   for (var i = 0; i < all.length; i++) { all[i].required = false; all[i].placeholder=""}
-            document.getElementById("author").required="required";
-            document.getElementById("author").placeholder = "required";
-            document.getElementById("title").required="required";
-            document.getElementById("title").placeholder = "required";
-            document.getElementById("booktitle").required="required";
-            document.getElementById("booktitle").placeholder = "required";
-        
-            document.getElementById("year").required="required";
-            document.getElementById("year").placeholder = "required";
-        };
-        
+    <script>
         //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia
-        
-         function OnInputAuthor (event) {
-           if (document.getElementById("bookButton").checked) {
+        function OnInputAuthor(event) {
+            if (document.getElementById("bookButton").checked) {
 
-            if(event.target.value == "") {
-                    
-            
-             document.getElementById("editor").placeholder = "required";
-             
-             document.getElementById("editor").required= "required";
-            }
-            else {
-             document.getElementById("editor").placeholder = "";
-             
-             document.getElementById("editor").required= "";
-            }
-           }
+                if (event.target.value == "") {
 
 
-         }
-            
-         //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia    
-          function OnInputEditor (event) {
-           if (document.getElementById("bookButton").checked) {
+                    document.getElementById("editor").placeholder = "required";
 
-            if(event.target.value == "") {
-                    
-            
-             document.getElementById("author").placeholder = "required";
-             
-             document.getElementById("author").required= "required";
-            }
-            else {
-             document.getElementById("author").placeholder = "";
-             
-             document.getElementById("author").required= "";
+                    document.getElementById("editor").required = "required";
+                } else {
+                    document.getElementById("editor").placeholder = "";
+
+                    document.getElementById("editor").required = "";
+                }
             }
 
-           }
+        };
 
-         }
-           
-        
+        //jos tyyppi on book joko author TAI editor ovat pakollisia kenttia    
+        function OnInputEditor(event) {
+            if (document.getElementById("bookButton").checked) {
+
+                if (event.target.value == "") {
 
 
-    }
-    else if (document.attachEvent)
-    {
-        alert("Your browser does not support addEventListener");
-    }
+                    document.getElementById("author").placeholder = "required";
 
-</script>
+                    document.getElementById("author").required = "required";
+                } else {
+                    document.getElementById("author").placeholder = "";
+
+                    document.getElementById("author").required = "";
+                }
+            }
+        };
+    </script>
 </body>
 </html>

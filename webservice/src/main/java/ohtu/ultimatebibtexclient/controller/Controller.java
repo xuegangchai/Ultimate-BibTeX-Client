@@ -165,8 +165,8 @@ public class Controller
      * @param refID
      * @return to front page
      */
-    @RequestMapping("delete/{refID}")
-    public String deleteReference(Model model, @PathVariable int refID, @Valid @ModelAttribute("reference") Reference ref, BindingResult res)
+    @RequestMapping(value = "delete/{refID}")
+    public String deleteReference(Model model, @PathVariable int refID, @Valid @ModelAttribute("reference") Reference ref)
     {
         if (null == referenceService.fetchByID(refID))
         {
@@ -174,7 +174,7 @@ public class Controller
         }
         ref.setId(refID);
         referenceService.delete(ref);
-        return "list";
+        return "redirect:/";
     }
 
 

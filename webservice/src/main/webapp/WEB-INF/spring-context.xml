@@ -29,8 +29,11 @@
     <jpa:repositories base-package="ohtu.ultimatebibtexclient.repository" />
 
     <!-- Käytetään Spring MVC:tä annotaatioiden avulla -->
-    <mvc:annotation-driven /> 
-       
+    <mvc:annotation-driven />
+    
+    <!-- ulkoinen css -->
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+         
     <!-- Mahdollistetaan konfigurointi annotaatioilla -->
     <context:annotation-config />
     
