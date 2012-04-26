@@ -174,7 +174,7 @@ public class Controller
         }
         ref.setId(refID);
         referenceService.delete(ref);
-        return "list";
+        return "redirect:/";
     }
 
 
